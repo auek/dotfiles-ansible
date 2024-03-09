@@ -5,9 +5,7 @@ set -e
 #DOTFILES_DIR="$HOME/.dotfiles"
 SSH_DIR="$HOME/.ssh"
 
-echo User email: "$USER_EMAIL"
-
-packages=(vim openssh-client)
+packages=(openssh-client ansible)
 
 for package in "${packages[@]}"; do
   if ! command -v "$package" &> /dev/null; then
@@ -15,15 +13,11 @@ for package in "${packages[@]}"; do
   fi
 done
 
-# if ! [ -x "$(command -v ansible)" ]; then
-#  echo "ansible does not exist"
-# fi
-
 if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
   mkdir -p  "$SSH_DIR"
 
   chmod 700 "$SSH_DIR"
 
-  #ssh-keygen -t ed25519 -C "$USER_MAIL"
+  ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER_MAIL"
 fi
 
