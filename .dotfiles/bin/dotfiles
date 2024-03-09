@@ -2,21 +2,28 @@
 
 set -e
 
-DOTFILES_DIR="$HOME/.dotfiles"
+#DOTFILES_DIR="$HOME/.dotfiles"
 SSH_DIR="$HOME/.ssh"
-USER_MAIL="august.ek90@gmail.com"
 
-# Check for ssh-keygen and vim
+echo User email: "$USER_EMAIL"
 
-if ! [ -x "$(command -v ansible)" ]; then
- echo "ansible does not exist"
-fi
+packages=(vim openssh-client)
+
+for package in "${packages[@]}"; do
+  if ! command -v "$package" &> /dev/null; then
+    sudo apt install -y "$package"
+  fi
+done
+
+# if ! [ -x "$(command -v ansible)" ]; then
+#  echo "ansible does not exist"
+# fi
 
 if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
   mkdir -p  "$SSH_DIR"
 
   chmod 700 "$SSH_DIR"
 
-  ssh-keygen -t ed25519 -C "$USER_MAIL"
+  #ssh-keygen -t ed25519 -C "$USER_MAIL"
 fi
 

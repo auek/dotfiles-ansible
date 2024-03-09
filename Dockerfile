@@ -5,7 +5,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update && \
-      apt-get -y install sudo vim
+      apt-get -y install sudo 
 
 RUN adduser --group --system devuser
 RUN echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
