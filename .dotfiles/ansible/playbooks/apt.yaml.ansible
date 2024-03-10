@@ -1,0 +1,7 @@
+---
+- name: Install with apt
+  ansible.builtin.apt:
+    pkg:
+      - git
+      - tmux
+    state: present

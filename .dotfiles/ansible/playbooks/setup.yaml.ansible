@@ -1,0 +1,10 @@
+---
+- name: Setup dev environment
+  hosts: localhost
+
+  tasks:
+    - include: apt.yaml.ansible
+      when: ansible_distribution == "Ubuntu"
+
+    - include: nvim.yaml.ansible
+
