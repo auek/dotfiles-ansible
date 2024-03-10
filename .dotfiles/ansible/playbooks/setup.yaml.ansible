@@ -3,8 +3,9 @@
   hosts: localhost
 
   tasks:
-    - include: apt.yaml.ansible
+    - name: Install dependencies and nvim for Ubuntu
+      block:
+      - include: apt.yaml.ansible
+      - include: nvim.yaml.ansible
       when: ansible_distribution == "Ubuntu"
-
-    - include: nvim.yaml.ansible
 
