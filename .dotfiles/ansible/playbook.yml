@@ -1,0 +1,12 @@
+---
+- name: Setup dev environment
+  hosts: localhost
+  become: true
+
+  tasks:
+    - block:
+        - name: Install with apt
+          include_tasks: tasks/apt.yml
+        - name: Build nvim from source
+          include_tasks: tasks/nvim.yml
+      when: ansible_distribution == "Ubuntu"

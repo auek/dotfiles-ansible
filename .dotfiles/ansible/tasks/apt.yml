@@ -1,7 +1,7 @@
 ---
-- name: Install with apt
-  ansible.builtin.apt:
+- ansible.builtin.apt:
     pkg:
       - git
       - tmux
+      - htop
     state: present

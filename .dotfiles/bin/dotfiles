@@ -3,7 +3,7 @@
 set -e
 
 #DOTFILES_DIR="$HOME/.dotfiles"
-SSH_DIR="$HOME/.ssh"
+# SSH_DIR="$HOME/.ssh"
 
 packages=(openssh-client ansible)
 
@@ -13,11 +13,19 @@ for package in "${packages[@]}"; do
   fi
 done
 
-if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
-  mkdir -p  "$SSH_DIR"
-
-  chmod 700 "$SSH_DIR"
-
-  ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER_MAIL"
+if command -v ansible-galaxy &> /dev/null; then
+  ansible-galaxy collection install -r "$HOME/.dotfiles/ansible/requirements.yml"
 fi
+
+if command -v ansible &> /dev/null; then
+  ansible-playbook "$HOME/.dotfiles/ansible/playbook.yml"
+fi
+
+# if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
+#   mkdir -p  "$SSH_DIR"
+#
+#   chmod 700 "$SSH_DIR"
+#
+#   ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER_MAIL"
+# fi
 
