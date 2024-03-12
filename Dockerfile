@@ -14,13 +14,15 @@ RUN mkdir -p /home/devuser/.dotfiles
 ADD .dotfiles /home/devuser/.dotfiles
 
 RUN chown -R devuser:devuser /home/devuser/.dotfiles
-RUN chmod 755 -R /home/devuser/.dotfiles
+RUN chmod 700 -R /home/devuser/.dotfiles
 
 USER devuser
 
 WORKDIR /home/devuser
 
+ENTRYPOINT ["bash", "/home/devuser/.dotfiles/bin/dotfiles"]
+
 
 # To avoid immediate exit after container run is finished
-ENTRYPOINT ["tail"]
-CMD ["-f", "/dev/null"]
+# ENTRYPOINT ["tail"]
+# CMD ["-f", "/dev/null"]
