@@ -4,4 +4,6 @@
       - git
       - tmux
       - htop
+      - zsh
+      - curl
     state: present

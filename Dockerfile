@@ -1,5 +1,5 @@
 #
-# This script is for quickly setting up a dev environment
+# This Dockerfile is for quickly setting up a dev environment
 # where the dotfiles can be tested over and over again
 #
 FROM ubuntu:20.04
@@ -20,9 +20,6 @@ USER devuser
 
 WORKDIR /home/devuser
 
-ENTRYPOINT ["bash", "/home/devuser/.dotfiles/bin/dotfiles"]
-
-
 # To avoid immediate exit after container run is finished
-# ENTRYPOINT ["tail"]
-# CMD ["-f", "/dev/null"]
+ENTRYPOINT ["tail"]
+CMD ["-f", "/dev/null"]
