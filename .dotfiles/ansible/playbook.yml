@@ -9,8 +9,12 @@
             name: devuser
             shell: /bin/zsh
       become: true
+    - name: Create .config directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config"
+        state: directory
     - name: Stow dotfiles
-      command: "chdir={{ ansible_env.HOME }}/.dotfiles make"
+      command: chdir={{ ansible_env.HOME }}/.dotfiles/  make
     - name: Install Oh My Zsh
       include_tasks: tasks/ohmyzsh.yml
     - name: Build nvim from source

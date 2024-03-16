@@ -1,6 +1,8 @@
 all:
-	stow --verbose --target=/home/devuser/ --restow zshrc
-	stow --verbose --target=/home/devuser/ --restow tmux
+	stow --verbose --target=$$HOME --restow zshrc
+	stow --verbose --target=$$HOME --restow tmux
+	stow --verbose --target=$$HOME --restow nvim
 delete:
-	stow --verbose --target=/home/devuser/ --delete zshrc
-	stow --verbose --target=/home/devuser/ --delete tmux
+	stow --verbose --target=$$HOME --delete zshrc
+	stow --verbose --target=$$HOME --delete tmux
+	stow --verbose --target=$$HOME --delete nvim
