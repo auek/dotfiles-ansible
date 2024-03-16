@@ -1,26 +1,22 @@
----
 - name: Setup dev environment
   hosts: localhost
-  become: true
-
   tasks:
     - block:
         - name: Install with apt
           include_tasks: tasks/apt.yml
         - name: Set zsh as shell
-          user:
+          ansible.builtin.user:
             name: devuser
             shell: /bin/zsh
-        - name: Download Oh My Zsh installation script
-          get_url:
-            url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-            dest: /tmp/install_ohmyzsh.sh
-
-          # This seems not to work quite right...
-        - name: Run Oh My Zsh installation script
-          command: sh /tmp/install_ohmyzsh.sh --unattended
-          register: ohmyzsh_result
-          failed_when: "'FAILED' in ohmyzsh_result.stderr"
-        #   include_tasks: tasks/nvim.yml
-      # - name: Build nvim from source
-      when: ansible_distribution == "Ubuntu"
+      become: true
+    - name: Download Oh My Zsh installation script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install_ohmyzsh.sh
+        mode: "0644"
+    - name: Run Oh My Zsh installation script
+      command: sh /tmp/install_ohmyzsh.sh --unattended
+      register: ohmyzsh_result
+      failed_when: "'FAILED' in ohmyzsh_result.stderr"
+  #   include_tasks: tasks/nvim.yml
+  # - name: Build nvim from source
