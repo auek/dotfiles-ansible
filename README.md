@@ -3,5 +3,5 @@
 ## Dockerfile
 Used to quickly spin up container ready for experiments
 
-## .dotfiles/bin/dotfiles
-Runs on the new machine
+## .dotfiles/bin/bootstrap
+Install deps, ansible and then runs ansible playbook which does the rest
