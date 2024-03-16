@@ -35,14 +35,10 @@ end
 
 -- Set up lspconfig.
 --
---
---
---
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-require("mason").setup()
-require("mason-lspconfig").setup()
-
+local cmp_nvim_lsp_require_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local lspconfig_require_ok, lspconfig = pcall(require, "lspconfig")
+if cmp_nvim_lsp_require_ok and lspconfig_require_ok then
+  local capabilities = cmp_nvim_lsp.default_capabilities()
 -- require("lspconfig").sumneko_lua.setup({
 -- 	on_attach = on_attach,
 -- 	settings = {
@@ -66,10 +62,10 @@ require("mason-lspconfig").setup()
 -- 	capabilities = capabilities,
 -- })
 
-require("lspconfig").jsonls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
+-- require("lspconfig").jsonls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
 
 -- require("lspconfig").eslint.setup({
 -- 	on_attach = on_attach,
@@ -86,10 +82,10 @@ require("lspconfig").jsonls.setup({
 -- 	capabilities = capabilities,
 -- })
 
-require("lspconfig").yamlls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
+-- require("lspconfig").yamlls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
 
 -- require("lspconfig").ansiblels.setup{
 --   filetypes = {
@@ -99,8 +95,22 @@ require("lspconfig").yamlls.setup({
 -- 	capabilities = capabilities,
 -- }
 
-require("lspconfig").pyright.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
+-- require("lspconfig").pyright.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
+
+end
+
+local mason_require_ok, mason = pcall(require, "mason")
+local mason_lspconfig_require_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+
+if mason_require_ok then
+  mason.setup()
+end
+
+if mason_lspconfig_require_ok then
+  mason_lspconfig.setup()
+end
+
 

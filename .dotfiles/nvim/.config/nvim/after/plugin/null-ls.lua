@@ -1,4 +1,8 @@
-local null_ls = require("null-ls")
+local null_ls_require_ok, null_ls = pcall(require, "null-ls")
+
+if not null_ls_require_ok then
+  return
+end
 
 -- register any number of sources simultaneously
 -- NOTE: Had to remove styleua
