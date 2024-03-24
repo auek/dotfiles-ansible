@@ -7,4 +7,5 @@
       - curl
       - stow
       - make
+      - exa
     state: present

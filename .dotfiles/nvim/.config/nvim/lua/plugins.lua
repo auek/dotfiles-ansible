@@ -20,17 +20,34 @@ return require("packer")
 		use("ellisonleao/gruvbox.nvim")
 
 		-- LSP config
-		use({
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"neovim/nvim-lspconfig",
-		})
+		-- use({
+		-- 	"williamboman/mason.nvim",
+		-- 	"williamboman/mason-lspconfig.nvim",
+		-- 	"neovim/nvim-lspconfig",
+		-- })
+
+    use {
+     'VonHeikemen/lsp-zero.nvim',
+      branch = 'v3.x',
+      requires = {
+      --- Uncomment the two plugins below if you want to manage the language servers from neovim
+      {'williamboman/mason.nvim'},
+      {'williamboman/mason-lspconfig.nvim'},
+
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-nvim-lsp'},
+      {'L3MON4D3/LuaSnip'},
+  }
+}
 
 		-- null-ls
-		use({
-			"jose-elias-alvarez/null-ls.nvim",
-			requires = { "nvim-lua/plenary.nvim" },
-		})
+		-- use({
+		-- 	"jose-elias-alvarez/null-ls.nvim",
+		-- 	requires = { "nvim-lua/plenary.nvim" },
+		-- })
 
 		use({
 			"folke/trouble.nvim",
@@ -132,14 +149,14 @@ return require("packer")
 		use("windwp/nvim-ts-autotag")
 
 		-- Completion
-		use("hrsh7th/nvim-cmp")
+		-- use("hrsh7th/nvim-cmp")
 		use("hrsh7th/cmp-buffer")
 		use("hrsh7th/cmp-path")
 		use("hrsh7th/cmp-cmdline")
-		use("hrsh7th/cmp-nvim-lsp")
+		-- use("hrsh7th/cmp-nvim-lsp")
 
 		-- Snippets
-		use("L3MON4D3/LuaSnip")
+		-- use("L3MON4D3/LuaSnip")
 		use("saadparwaiz1/cmp_luasnip")
 		use("rafamadriz/friendly-snippets")
 
