@@ -8,16 +8,19 @@ bindkey "\e\e[C" forward-word
 
 ### Aliases ###
 alias p="pwd"
-alias l="ls"
-alias ll="ls -lah"
-alias t="tree -LC 2 --gitignore | less -R" 
+#alias t="tree -LC 2 --gitignore | less -R" 
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../../.."
+alias l="exa"
+alias ls="exa"
+alias ll="exa -lah"
+alias t="exa --icons --classify --sort=type -T -L 2"
 
 alias vim="nvim"
 alias fd="fdfind"
 alias python="python3"
+
 
 # Git
 alias gst="git status"
@@ -34,7 +37,7 @@ alias gcb="git checkout -b"
 ### Settings ###
 
 # PATH
-export PATH=/home/august/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 # History
 HISTFILE=~/.zsh_history
@@ -65,7 +68,6 @@ _fzf_compgen_dir() {
     fd --type d --hidden -E "**/node_modules/**" -E "**/.git/**" -E ".git" . "$1"
 }
 END
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -77,6 +79,8 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git zsh-autosuggestions)
 
+# Skip all OMZ aliases or they will overwrite the ones defined in this file
+zstyle ':omz:*' aliases no
 #source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
 
