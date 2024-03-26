@@ -1,8 +1,8 @@
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -12,166 +12,152 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require("packer")
-	.startup(function(use)
-		-- Packer can manage itself
-		use("wbthomason/packer.nvim")
+    .startup(function(use)
+      -- Packer can manage itself
+      use("wbthomason/packer.nvim")
 
-		-- Color theme
-		use("ellisonleao/gruvbox.nvim")
+      -- Color theme
+      use("ellisonleao/gruvbox.nvim")
 
-		-- LSP config
-		-- use({
-		-- 	"williamboman/mason.nvim",
-		-- 	"williamboman/mason-lspconfig.nvim",
-		-- 	"neovim/nvim-lspconfig",
-		-- })
+      use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        requires = {
+          { 'williamboman/mason.nvim' },
+          { 'williamboman/mason-lspconfig.nvim' },
 
-    use {
-     'VonHeikemen/lsp-zero.nvim',
-      branch = 'v3.x',
-      requires = {
-      --- Uncomment the two plugins below if you want to manage the language servers from neovim
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
+          -- LSP Support
+          { 'neovim/nvim-lspconfig' },
+          -- Autocompletion
+          { 'hrsh7th/nvim-cmp' },
+          { 'hrsh7th/cmp-nvim-lsp' },
+          { 'L3MON4D3/LuaSnip' },
+        }
+      }
+      use({
+        "stevearc/conform.nvim"
+      })
 
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'L3MON4D3/LuaSnip'},
-  }
-}
+      use({
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+          require("trouble").setup({
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section belo
+          })
+        end,
+      })
 
-		-- null-ls
-		-- use({
-		-- 	"jose-elias-alvarez/null-ls.nvim",
-		-- 	requires = { "nvim-lua/plenary.nvim" },
-		-- })
+      -- Treesitter
+      use({
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+          local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+          ts_update()
+        end,
+      })
 
-		use({
-			"folke/trouble.nvim",
-			requires = "kyazdani42/nvim-web-devicons",
-			config = function()
-				require("trouble").setup({
-					-- your configuration comes here
-					-- or leave it empty to use the default settings
-					-- refer to the configuration section belo
-				})
-			end,
-		})
+      -- Treesitter indentation
+      use({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
 
-		-- Treesitter
-		use({
-			"nvim-treesitter/nvim-treesitter",
-			run = function()
-				local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-				ts_update()
-			end,
-		})
+      -- Comments
+      use({
+        "numToStr/Comment.nvim",
+        config = function()
+          require("Comment").setup()
+        end,
+      })
 
-		-- Treesitter indentation
-		use({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
+      -- Surround
+      use("tpope/vim-surround")
 
-		-- Comments
-		use({
-			"numToStr/Comment.nvim",
-			config = function()
-				require("Comment").setup()
-			end,
-		})
+      -- Repeat
+      use("tpope/vim-repeat")
 
-		-- Surround
-		use("tpope/vim-surround")
+      -- File explorer
+      use({
+        "nvim-tree/nvim-tree.lua",
+        -- requires = {
+        -- 	"nvim-tree/nvim-web-devicons", -- optional, for file icons
+        -- },
+      })
 
-		-- Repeat
-		use("tpope/vim-repeat")
+      -- Statusline
+      use({
+        "nvim-lualine/lualine.nvim",
+        config = function()
+          require("lualine").setup({
+            options = {
+              theme = "gruvbox",
+            },
+          })
+        end,
+        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      })
 
-		-- File explorer
-		use({
-			"nvim-tree/nvim-tree.lua",
-			-- requires = {
-			-- 	"nvim-tree/nvim-web-devicons", -- optional, for file icons
-			-- },
-		})
+      -- Fuzzy finder
+      use({
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.5",
+        config = function()
+          require("telescope").setup({
+            pickers = {
+              find_files = {
+                find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+              },
+            },
+          })
+        end,
+        requires = { { "nvim-lua/plenary.nvim" } },
+      })
 
-		-- Statusline
-		use({
-			"nvim-lualine/lualine.nvim",
-			config = function()
-				require("lualine").setup({
-					options = {
-						theme = "gruvbox",
-					},
-				})
-			end,
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		})
+      -- Git Manager
+      use({
+        "tpope/vim-fugitive",
+      })
 
-		-- Fuzzy finder
-		use({
-			"nvim-telescope/telescope.nvim",
-			tag = "0.1.5",
-			config = function()
-				require("telescope").setup({
-					pickers = {
-						find_files = {
-							find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-						},
-					},
-				})
-			end,
-			requires = { { "nvim-lua/plenary.nvim" } },
-		})
+      -- Git Signs
+      use({
+        "lewis6991/gitsigns.nvim",
+        config = function()
+          require("gitsigns").setup()
+        end,
+      })
 
-		-- Git Manager
-		use({
-			"tpope/vim-fugitive",
-		})
+      -- Auto pairs
+      use({
+        "windwp/nvim-autopairs",
+        config = function()
+          require("nvim-autopairs").setup({})
+        end,
+      })
 
-		-- Git Signs
-		use({
-			"lewis6991/gitsigns.nvim",
-			config = function()
-				require("gitsigns").setup()
-			end,
-		})
+      -- Auto tags
+      use("windwp/nvim-ts-autotag")
 
-		-- Auto pairs
-		use({
-			"windwp/nvim-autopairs",
-			config = function()
-				require("nvim-autopairs").setup({})
-			end,
-		})
+      -- Completion
+      use("hrsh7th/cmp-buffer")
+      use("hrsh7th/cmp-path")
+      use("hrsh7th/cmp-cmdline")
 
-		-- Auto tags
-		use("windwp/nvim-ts-autotag")
+      -- Snippets
+      use("saadparwaiz1/cmp_luasnip")
+      use("rafamadriz/friendly-snippets")
 
-		-- Completion
-		-- use("hrsh7th/nvim-cmp")
-		use("hrsh7th/cmp-buffer")
-		use("hrsh7th/cmp-path")
-		use("hrsh7th/cmp-cmdline")
-		-- use("hrsh7th/cmp-nvim-lsp")
+      -- Wiki
+      use({
+        "vimwiki/vimwiki",
+        branch = "dev",
+      })
 
-		-- Snippets
-		-- use("L3MON4D3/LuaSnip")
-		use("saadparwaiz1/cmp_luasnip")
-		use("rafamadriz/friendly-snippets")
+      -- Startpage
+      use("mhinz/vim-startify")
 
-		-- Wiki
-		use({
-			"vimwiki/vimwiki",
-			branch = "dev",
-		})
+      use("pearofducks/ansible-vim")
 
-		-- Startpage
-		use("mhinz/vim-startify")
-
-    use("pearofducks/ansible-vim")
-
-    if packer_bootstrap then
-      require('packer').sync()
-    end
-	end).sync()
+      if packer_bootstrap then
+        require('packer').sync()
+      end
+    end).sync()

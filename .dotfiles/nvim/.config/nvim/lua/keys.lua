@@ -1,4 +1,4 @@
-local builtin_require_ok, builtin = pcall(require,"telescope.builtin")
+local builtin_require_ok, builtin = pcall(require, "telescope.builtin")
 
 local map = vim.keymap.set
 local default_opts = { silent = true, noremap = true }
@@ -27,7 +27,7 @@ if builtin_require_ok then
   map("n", "<leader>ls", builtin.buffers, {})
   map("n", "<leader>ma", builtin.marks, {})
 end
-  
+
 -- Write with :W
 vim.cmd("com W w")
 vim.cmd("com Wq wq")
