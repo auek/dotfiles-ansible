@@ -12,6 +12,7 @@ if conform_require_ok then
       css = { "prettierd" },
       html = { "prettierd" },
       json = { "prettierd" },
+      astro = { "prettierd" },
     },
     format_on_save = {
       lsp_fallback = true,

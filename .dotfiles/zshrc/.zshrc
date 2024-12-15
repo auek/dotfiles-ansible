@@ -8,7 +8,6 @@ bindkey "\e\e[C" forward-word
 
 ### Aliases ###
 alias p="pwd"
-#alias t="tree -LC 2 --gitignore | less -R" 
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../../.."
@@ -77,10 +76,16 @@ export NVM_DIR="$HOME/.nvm"
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
-plugins=(git zsh-autosuggestions)
+plugins=(git ssh-agent zsh-autosuggestions)
 
 # Skip all OMZ aliases or they will overwrite the ones defined in this file
 zstyle ':omz:*' aliases no
+
+# Add ssh keys to agent
+zstyle :omz:plugins:ssh-agent identities id_ed25519 id_ed25519_contabo
+
 #source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
 
+# Start tmux if not already running
+if [ "$TMUX" = "" ]; then tmux; fi

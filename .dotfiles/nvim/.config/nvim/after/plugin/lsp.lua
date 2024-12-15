@@ -14,7 +14,7 @@ end
 
 if mason_lspconfig_require_ok then
   mason_lspconfig.setup({
-    ensure_installed = { 'bashls', 'tsserver', 'lua_ls', 'eslint', 'yamlls', 'ansiblels' },
+    ensure_installed = { 'bashls', 'ts_ls', 'lua_ls', 'eslint', 'yamlls', 'ansiblels', 'astro' },
     handlers = {
       lsp_zero.default_setup,
       lua_ls = function()

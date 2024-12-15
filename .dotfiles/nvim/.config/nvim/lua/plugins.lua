@@ -34,8 +34,18 @@ return require("packer")
           { 'L3MON4D3/LuaSnip' },
         }
       }
+
       use({
         "stevearc/conform.nvim"
+      })
+
+      use({
+        "folke/which-key.nvim",
+        config = function()
+          require("which-key").setup({
+            -- Customize your which-key settings if necessary
+          })
+        end
       })
 
       use({
@@ -100,12 +110,17 @@ return require("packer")
       -- Fuzzy finder
       use({
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.5",
+        tag = "0.1.8",
         config = function()
           require("telescope").setup({
             pickers = {
               find_files = {
-                find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+                find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" },
+              },
+              live_grep = {
+                additional_args = function()
+                  return { "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" }
+                end,
               },
             },
           })
