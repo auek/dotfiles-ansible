@@ -29,7 +29,7 @@ if mason_lspconfig_require_ok then
             },
           },
         })
-      end
+      end,
     },
   })
 end

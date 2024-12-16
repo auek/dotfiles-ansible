@@ -23,3 +23,7 @@ opt.termguicolors = true
 
 -- Side gutter
 opt.signcolumn = "yes:1"
+
+-- Smart case
+opt.ignorecase = true
+opt.smartcase = true

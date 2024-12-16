@@ -11,6 +11,8 @@ map("n", "<leader>fe", "<cmd>NvimTreeFindFileToggle<CR>", default_opts)
 
 -- Copilot
 map('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+-- TODO: Fix next/previous keymaps
+
 vim.g.copilot_no_tab_map = true
 
 -- Copy/Paste to clipboard
@@ -33,6 +35,10 @@ if builtin_require_ok then
   map("n", "<leader>ls", builtin.buffers, {})
   map("n", "<leader>ma", builtin.marks, {})
 end
+
+-- LSP
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", default_opts)
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", default_opts)
 
 -- Close buffer
 vim.cmd("com W w")

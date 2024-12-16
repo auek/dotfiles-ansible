@@ -19,6 +19,9 @@ return require("packer")
       -- Color theme
       use("ellisonleao/gruvbox.nvim")
 
+      -- Copilot
+      use("github/copilot.vim")
+
       use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
