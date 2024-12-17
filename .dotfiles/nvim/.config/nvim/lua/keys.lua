@@ -3,6 +3,14 @@ local builtin_require_ok, builtin = pcall(require, "telescope.builtin")
 local map = vim.keymap.set
 local default_opts = { silent = true, noremap = true }
 
+local function define_command(cmd, replacement)
+  if not vim.fn.exists(":" .. cmd) then
+    vim.cmd("com! " .. cmd .. " " .. replacement)
+  end
+end
+
+local copilot_enabled = vim.fn.exists(":Copilot")
+
 -- Leader
 map("i", "jj", "<Esc>", {})
 
@@ -10,12 +18,15 @@ map("i", "jj", "<Esc>", {})
 map("n", "<leader>fe", "<cmd>NvimTreeFindFileToggle<CR>", default_opts)
 
 -- Copilot
-map('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
--- TODO: Fix next/previous keymaps
+if copilot_enabled then
+  map('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+  map('i', '<M-]>', '<Plug>(copilot-next)')
+  map('i', '<M-[>', '<Plug>(copilot-previous)')
+  vim.g.copilot_no_tab_map = true
+end
 
-vim.g.copilot_no_tab_map = true
 
--- Copy/Paste to clipboard
+-- Copy/Paste
 map("v", "<leader>y", '"*y', default_opts)
 map("n", "<leader>p", '"*p', default_opts)
 
@@ -40,10 +51,10 @@ end
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", default_opts)
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", default_opts)
 
--- Close buffer
-vim.cmd("com W w")
-vim.cmd("com Wq wq")
-vim.cmd("com WQ wq")
+-- Sausage fingers...
+define_command("W", "w")
+define_command("Wq", "wq")
+define_command("WQ", "wq")
 
 -- Sort
 map("v", "<F9>", ":sort<CR>", default_opts)
