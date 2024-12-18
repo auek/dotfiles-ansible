@@ -1,7 +1,17 @@
 # Dotfiles - automated setup of development environment
 
-## Dockerfile
-Used to quickly spin up container ready for experiments
+## Prerequisites
+Ubuntu 
+Docker (if you want to use Dockerfile)
 
-## .dotfiles/bin/bootstrap
-Install deps, ansible and then runs ansible playbook which does the rest
+## How to run in Docker
+docker-compose up -d
+docker-compose exec -it dotfiles bash
+. .dotfiles/bin/bootstrap // This will install ansible and run the playbook
+
+## Remove docker container
+docker-compose down
+
+## Remove Docker image
+docker rmi auek/dotfiles
+
