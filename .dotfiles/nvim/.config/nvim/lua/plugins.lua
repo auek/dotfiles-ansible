@@ -22,6 +22,12 @@ return require("packer")
       -- Copilot
       use("github/copilot.vim")
 
+      -- Markdown Preview
+      use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+      })
+
       use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
