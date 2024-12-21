@@ -1,21 +1,27 @@
 - name: Setup dev environment
   hosts: localhost
   tasks:
-    - block:
+    - name: Install packages and shell
+      become: true
+      block:
         - name: Install with apt
           include_tasks: tasks/apt.yml
         - name: Set zsh as shell
           ansible.builtin.user:
             name: devuser
             shell: /bin/zsh
-      become: true
     - name: Create .config directory
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config"
         state: directory
+        mode: "0755"
     - name: Stow dotfiles
-      command: chdir={{ ansible_env.HOME }}/.dotfiles/  make
+      ansible.builtin.command:
+        argv: ["make"]
+        chdir: "{{ ansible_env.HOME }}/.dotfiles/"
+      register: stow_result
+      changed_when: stow_result.stdout != ''
     - name: Install Oh My Zsh
       include_tasks: tasks/ohmyzsh.yml
-    - name: Build nvim from source
-      include_tasks: tasks/nvim.yml
+    # - name: Build nvim from source
+    #   include_tasks: tasks/nvim.yml

@@ -50,8 +50,11 @@ end
 -- LSP
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", default_opts)
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", default_opts)
+map("n", "[d", vim.diagnostic.goto_prev, default_opts)
+map("n", "]d", vim.diagnostic.goto_next, default_opts)
+map("n", "<leader>d", vim.diagnostic.open_float, default_opts)
 
--- Sausage fingers...
+-- TODO: This won't work
 define_command("W", "w")
 define_command("Wq", "wq")
 define_command("WQ", "wq")

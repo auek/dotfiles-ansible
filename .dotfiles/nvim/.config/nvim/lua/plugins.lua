@@ -170,12 +170,6 @@ return require("packer")
       use("saadparwaiz1/cmp_luasnip")
       use("rafamadriz/friendly-snippets")
 
-      -- Wiki
-      use({
-        "vimwiki/vimwiki",
-        branch = "dev",
-      })
-
       -- Startpage
       use("mhinz/vim-startify")
 
