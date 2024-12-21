@@ -1,4 +1,5 @@
-- ansible.builtin.apt:
+- name: Install apt packages
+  ansible.builtin.apt:
     pkg:
       - git
       - tmux

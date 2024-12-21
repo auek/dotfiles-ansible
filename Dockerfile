@@ -2,10 +2,10 @@
 # This Dockerfile is for quickly setting up a dev environment
 # where the dotfiles can be tested over and over again
 #
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 RUN apt-get update && \
-      apt-get -y install sudo 
+    apt-get -y install sudo 
 
 RUN adduser --group --system devuser && \
     echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers

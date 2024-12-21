@@ -3,12 +3,6 @@ local builtin_require_ok, builtin = pcall(require, "telescope.builtin")
 local map = vim.keymap.set
 local default_opts = { silent = true, noremap = true }
 
-local function define_command(cmd, replacement)
-  if not vim.fn.exists(":" .. cmd) then
-    vim.cmd("com! " .. cmd .. " " .. replacement)
-  end
-end
-
 local copilot_enabled = vim.fn.exists(":Copilot")
 
 -- Leader
@@ -54,10 +48,9 @@ map("n", "[d", vim.diagnostic.goto_prev, default_opts)
 map("n", "]d", vim.diagnostic.goto_next, default_opts)
 map("n", "<leader>d", vim.diagnostic.open_float, default_opts)
 
--- TODO: This won't work
-define_command("W", "w")
-define_command("Wq", "wq")
-define_command("WQ", "wq")
+vim.cmd("com! W w")
+vim.cmd("com! Wq wq")
+vim.cmd("com! WQ wq")
 
 -- Sort
 map("v", "<F9>", ":sort<CR>", default_opts)

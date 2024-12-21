@@ -4,8 +4,8 @@
     - name: Install packages and shell
       become: true
       block:
-        - name: Install with apt
-          include_tasks: tasks/apt.yml
+        - name: Including apt tasks
+          ansible.builtin.include_tasks: tasks/apt.yml
         - name: Set zsh as shell
           ansible.builtin.user:
             name: devuser
@@ -21,7 +21,7 @@
         chdir: "{{ ansible_env.HOME }}/.dotfiles/"
       register: stow_result
       changed_when: stow_result.stdout != ''
-    - name: Install Oh My Zsh
-      include_tasks: tasks/ohmyzsh.yml
+    - name: Including ohmyzsh tasks
+      ansible.builtin.include_tasks: tasks/ohmyzsh.yml
     # - name: Build nvim from source
     #   include_tasks: tasks/nvim.yml
