@@ -2,7 +2,7 @@
 
 set -e
 
-packages=(software-properties-common)
+packages=(software-properties-common openssh-client)
 
 sudo apt update
 

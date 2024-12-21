@@ -21,7 +21,11 @@
         chdir: "{{ ansible_env.HOME }}/.dotfiles/"
       register: stow_result
       changed_when: stow_result.stdout != ''
-    - name: Including ohmyzsh tasks
+    - name: Include ohmyzsh tasks
       ansible.builtin.include_tasks: tasks/ohmyzsh.yml
-    # - name: Build nvim from source
-    #   include_tasks: tasks/nvim.yml
+    - name: Include nvim tasks
+      ansible.builtin.include_tasks: tasks/nvim.yml
+    - name: Include nvm tasks
+      ansible.builtin.include_tasks: tasks/nvm.yml
+    - name: Include node tasks
+      ansible.builtin.include_tasks: tasks/node.yml
