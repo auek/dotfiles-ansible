@@ -10,11 +10,18 @@
           ansible.builtin.user:
             name: devuser
             shell: /bin/zsh
-    - name: Create .config directory
+    - name: Ensure .config directory exists
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config"
         state: directory
         mode: "0755"
+
+    - name: Ensure .ssh directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.ssh"
+        state: directory
+        mode: '0700'
+      become: false
     - name: Stow dotfiles
       ansible.builtin.command:
         argv: ["make"]

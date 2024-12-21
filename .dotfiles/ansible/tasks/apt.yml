@@ -8,5 +8,5 @@
       - curl
       - stow
       - make
-      # - exa
+      - exa
     state: present
