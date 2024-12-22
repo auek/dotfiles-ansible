@@ -16,10 +16,6 @@ RUN groupadd -r devuser && \
     useradd -r -g devuser -m -d /home/devuser devuser && \
     echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-RUN mkdir -p /home/devuser/.dotfiles && \
-    chown -R devuser:devuser /home/devuser/.dotfiles && \
-    chmod 700 -R /home/devuser/.dotfiles
-
 # Switch to devuser
 USER devuser
 WORKDIR /home/devuser
