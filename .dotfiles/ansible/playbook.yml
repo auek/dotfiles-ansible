@@ -30,8 +30,9 @@
       changed_when: stow_result.stdout != ''
     - name: Include ohmyzsh tasks
       ansible.builtin.include_tasks: tasks/ohmyzsh.yml
-    - name: Include nvim tasks
-      ansible.builtin.include_tasks: tasks/nvim.yml
+    # Installs most recent nvim from source
+    # - name: Include nvim tasks
+    #   ansible.builtin.include_tasks: tasks/nvim.yml
     - name: Include nvm tasks
       ansible.builtin.include_tasks: tasks/nvm.yml
     - name: Include node tasks

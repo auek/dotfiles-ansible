@@ -4,5 +4,6 @@ local success, errmsg = pcall(function()
 end)
 
 if not success then
-  print("Error applying gruvbox colorscheme:", errmsg)
+  vim.notify("Error applying gruvbox colorscheme: " .. errmsg, vim.log.levels.ERROR)
+  return
 end

@@ -1,12 +1,34 @@
-- name: Install apt packages
-  ansible.builtin.apt:
-    pkg:
+- name: Setup package lists
+  ansible.builtin.set_fact:
+    required_packages:
       - git
-      - tmux
-      - htop
       - zsh
       - curl
-      - stow
       - make
+      - stow
+      - openssh-client
+      - neovim # Ubuntu 24.04 -> 0.9.5 
+    optional_packages:
+      - htop
       - exa
+      - tmux
+
+- name: Install required packages
+  ansible.builtin.apt:
+    pkg: "{{ required_packages }}"
     state: present
+
+- name: Install optional packages
+  ansible.builtin.apt:
+    pkg: "{{ item }}"
+    state: present
+  loop: "{{ optional_packages }}"
+  register: optional_install
+  failed_when: false
+
+- name: Report failed optional package installations
+  ansible.builtin.debug:
+    msg: "Optional package {{ item.item }} could not be installed"
+  loop: "{{ optional_install.results }}"
+  when: item.failed is defined and item.failed
+
