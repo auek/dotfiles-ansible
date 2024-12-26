@@ -1,0 +1,14 @@
+---
+- name: System setup tasks
+  block:
+    - name: Including apt tasks
+      ansible.builtin.include_tasks: apt.yml
+    - name: Set zsh as shell
+      ansible.builtin.user:
+        name: devuser
+        shell: /bin/zsh
+  become: true
+# - name: Including apt tasks
+#   ansible.builtin.include_tasks: apt.yml
+#   become: true
+

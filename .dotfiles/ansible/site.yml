@@ -1,0 +1,8 @@
+---
+- name: Setup dev environment
+  hosts: localhost
+  roles:
+    - system
+    - dotfiles
+    - shell
+    - development
