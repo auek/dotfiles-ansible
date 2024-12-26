@@ -22,6 +22,6 @@ if command -v ansible-galaxy &> /dev/null; then
 fi
 
 if command -v ansible &> /dev/null; then
-  ansible-playbook "$HOME/.dotfiles/ansible/playbook.yml"
+  ansible-playbook "$HOME/.dotfiles/ansible/site.yml"
 fi
 

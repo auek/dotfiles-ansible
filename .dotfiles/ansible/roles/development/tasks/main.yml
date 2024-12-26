@@ -1,0 +1,6 @@
+---
+- name: Include nvm tasks
+  ansible.builtin.include_tasks: nvm.yml
+
+- name: Include node tasks
+  ansible.builtin.include_tasks: node.yml
