@@ -11,11 +11,14 @@ alias p="pwd"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../../.."
-alias l="exa"
-alias ls="exa"
-alias ll="exa -lah"
-alias t="exa --icons --classify --sort=type -T -L 2"
 
+# if exa is installed, use it instead of ls
+if command -v exa &> /dev/null; then
+    alias l="exa"
+    alias ls="exa"
+    alias ll="exa -lah"
+    alias t="exa --icons --classify --sort=type -T -L 2"
+fi
 alias vim="nvim"
 alias fd="fdfind"
 alias python="python3"
