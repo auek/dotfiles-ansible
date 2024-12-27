@@ -34,9 +34,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Initialize lazy.nvim
 require("lazy").setup("plugins")
-
---require("plugins")
 require("opts")
 require("keys")
