@@ -1,0 +1,27 @@
+#
+# This Dockerfile is for quickly setting up a dev environment
+# where the dotfiles can be tested over and over again
+
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y sudo && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create devuser and set up sudo access
+RUN groupadd -r devuser && \
+    useradd -r -g devuser -m -d /home/devuser devuser && \
+    usermod -aG sudo devuser && \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/devuser && \
+    chmod 0440 /etc/sudoers.d/devuser
+
+# Switch to devuser
+USER devuser
+WORKDIR /home/devuser
+
+# Keep container running
+ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -1,11 +1,22 @@
 version: '3'
 services:
-  dotfiles:
+  dotfiles-ubuntu:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: auek/dotfiles:latest
-    container_name: dotfiles
+      dockerfile: Dockerfile.ubuntu
+    image: auek/dotfiles-ansible:ubuntu
+    container_name: dotfiles-ubuntu
+    volumes:
+      - ./.dotfiles:/home/devuser/.dotfiles
+    # Keep container running
+    tty: true
+    stdin_open: true
+  dotfiles-fedora:
+    build:
+      context: .
+      dockerfile: Dockerfile.fedora
+    image: auek/dotfiles-ansible:fedora
+    container_name: dotfiles-fedora
     volumes:
       - ./.dotfiles:/home/devuser/.dotfiles
     # Keep container running

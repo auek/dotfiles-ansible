@@ -1,0 +1,20 @@
+FROM fedora:40
+
+RUN dnf -y update && \
+    dnf -y install sudo && \
+    dnf clean all
+
+# Create devuser and set up sudo access
+RUN groupadd -r devuser && \
+    useradd -r -g devuser -m -d /home/devuser devuser && \
+    usermod -aG wheel devuser && \
+    echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/devuser && \
+    chmod 0440 /etc/sudoers.d/devuser
+
+# Switch to devuser
+USER devuser
+WORKDIR /home/devuser
+
+# Keep container running
+ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -4,14 +4,40 @@ set -e
 
 packages=(ansible)
 
-sudo apt update
+# Detect the OS
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+else
+    echo "Cannot detect OS"
+    exit 1
+fi
 
-for package in "${packages[@]}"; do
-  if ! command -v "$package" &> /dev/null; then
-    sudo DEBIAN_FRONTEND=noninteractive apt install -y "$package" --no-install-recommends
-  fi
-done
-
+# Install packages based on OS
+case $OS in
+    "ubuntu")
+        sudo apt update
+        for package in "${packages[@]}"; do
+            if ! command -v "$package" &> /dev/null; then
+                sudo DEBIAN_FRONTEND=noninteractive apt install -y "$package" --no-install-recommends
+            fi
+        done
+        ;;
+    
+    "fedora")
+        sudo dnf check-update || true  # dnf check-update exits with 100 if updates are available
+        for package in "${packages[@]}"; do
+            if ! command -v "$package" &> /dev/null; then
+                sudo dnf install -y "$package"
+            fi
+        done
+        ;;
+    
+    *)
+        echo "Unsupported OS: $OS"
+        exit 1
+        ;;
+esac
 # Install more recent version of Ansible than the one provided by Ubuntu
 # sudo add-apt-repository -y -u ppa:ansible/ansible
 # sudo apt update

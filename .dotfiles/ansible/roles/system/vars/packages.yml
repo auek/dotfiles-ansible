@@ -5,10 +5,10 @@ common_packages:
   - curl
   - make
   - stow
-  - openssh-client
   - neovim  # Ubuntu 24.04 will install neovim 0.9.5
   - tmux
 
 optional_packages:
   - htop
   - exa
+  - openssh-client
