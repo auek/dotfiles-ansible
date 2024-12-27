@@ -17,7 +17,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
   },
-  config = function()
+  init = function()
     local lsp_zero = require("lsp-zero")
     lsp_zero.on_attach(function(_, bufnr)
       lsp_zero.default_keymaps({ bufnr = bufnr })
@@ -32,7 +32,7 @@ return {
         "eslint",
         "yamlls",
         "ansiblels",
-        "astro"
+        "astro",
       },
       handlers = {
         lsp_zero.default_setup,
@@ -49,5 +49,5 @@ return {
         end,
       },
     })
-  end
+  end,
 }
