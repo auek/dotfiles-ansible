@@ -7,7 +7,7 @@
       - make
       - stow
       - openssh-client
-      - neovim # Ubuntu 24.04 -> 0.9.5 
+      - neovim # Ubuntu 24.04 will install neovim 0.9.5
     optional_packages:
       - htop
       - exa
@@ -31,4 +31,3 @@
     msg: "Optional package {{ item.item }} could not be installed"
   loop: "{{ optional_install.results }}"
   when: item.failed is defined and item.failed
-
