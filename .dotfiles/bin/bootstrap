@@ -1,23 +1,22 @@
 #!/bin/bash
 
-
 set -e
 
 # This script checks if it is being sourced or executed in a subshell, works with bash and zsh
-(return 0 2>/dev/null) && sourced=1 
-if [ $sourced -eq 1 ]; then
+(return 0 2>/dev/null) && sourced=1 || sourced=0
+if [ "$sourced" -eq 1 ]; then
     echo "Script is being sourced, invoke it instead with 'sh'. Exiting..." 
     return 1
 fi
 
 
-dotfiles_dir="$HOME/.dotfiles"
+dotfiles_dest_dir="$HOME/.dotfiles"
 
-if [-d "$dotfiles_dir"]; then
+if [ -d "$dotfiles_dest_dir" ]; then
   echo "Dotfiles directory already exists. Exiting..."
   exit 1
 fi
-#
+
 # Detect the OS
 if [ -f /etc/os-release ]; then
     . /etc/os-release
@@ -27,9 +26,9 @@ else
     exit 1
 fi
 
-mkdir -p "$dotfiles_dir"
-cp -r ../../* "$dotfiles_dir"
-cd "$dotfiles_dir"
+script_dir="$(dirname "$0")"
+dotfiles_dir="$(realpath "$script_dir/../../.dotfiles")"
+cp -r "$dotfiles_dir" "$HOME"
 
 # Packages to install
 packages=(ansible)
@@ -65,11 +64,11 @@ esac
 # sudo DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ansible
 
 if command -v ansible-galaxy &> /dev/null; then
-  ansible-galaxy collection install -r "$dotfiles_dir/ansible/requirements.yml"
+  ansible-galaxy collection install -r "$dotfiles_dest_dir/ansible/requirements.yml"
 fi
 
 if command -v ansible &> /dev/null; then
-  ansible-playbook "$dotfiles_dir/ansible/site.yml"
+  ansible-playbook "$dotfiles_dest_dir/ansible/site.yml"
 fi
 
 exit 0
