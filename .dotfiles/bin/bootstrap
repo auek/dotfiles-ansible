@@ -3,8 +3,21 @@
 
 set -e
 
-packages=(ansible)
+# This script checks if it is being sourced or executed in a subshell, works with bash and zsh
+(return 0 2>/dev/null) && sourced=1 
+if [ $sourced -eq 1 ]; then
+    echo "Script is being sourced, invoke it instead with 'sh'. Exiting..." 
+    return 1
+fi
 
+
+dotfiles_dir="$HOME/.dotfiles"
+
+if [-d "$dotfiles_dir"]; then
+  echo "Dotfiles directory already exists. Exiting..."
+  exit 1
+fi
+#
 # Detect the OS
 if [ -f /etc/os-release ]; then
     . /etc/os-release
@@ -14,12 +27,12 @@ else
     exit 1
 fi
 
-# TODO:
-# Should only allow running in subshell so there will be no need to cd to correct place
-if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
-    echo "This script must be run from the dotfiles directory"
-    exit 1
-fi
+mkdir -p "$dotfiles_dir"
+cp -r ../../* "$dotfiles_dir"
+cd "$dotfiles_dir"
+
+# Packages to install
+packages=(ansible)
 
 # Install packages based on OS
 case $OS in
@@ -52,10 +65,11 @@ esac
 # sudo DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ansible
 
 if command -v ansible-galaxy &> /dev/null; then
-  ansible-galaxy collection install -r "$HOME/.dotfiles/ansible/requirements.yml"
+  ansible-galaxy collection install -r "$dotfiles_dir/ansible/requirements.yml"
 fi
 
 if command -v ansible &> /dev/null; then
-  ansible-playbook "$HOME/.dotfiles/ansible/site.yml"
+  ansible-playbook "$dotfiles_dir/ansible/site.yml"
 fi
 
+exit 0
