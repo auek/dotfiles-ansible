@@ -1,7 +1,7 @@
 # Dotfiles - automated setup of development environment
 
 ## Prerequisites
-Ubuntu 24.04 or Fedora 40
+Ubuntu 24.04 or Fedora 40+
 
 Docker (if you want to use it)
 
@@ -24,9 +24,13 @@ or
 `docker-compose exec -it dotfiles-fedora bash`
 
 
-### Setup the development environment in the container
+### Setup the development environment inside the container
 
-`. .dotfiles/bin/bootstrap # This will install the dotfiles and the development environment using ansible`
+`sh code/.dotfiles/bin/bootstrap` 
+
+afterwards, switch to zsh:
+
+`exec zsh`
 
 ### Stop and remove the container
 `docker-compose down`

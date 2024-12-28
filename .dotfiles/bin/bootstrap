@@ -1,36 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
 is_sourced() {
-   if [ -n "$ZSH_VERSION" ]; then 
-       case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
-   else  # Add additional POSIX-compatible shell names here, if needed.
-       case ${0##*/} in dash|-dash|bash|-bash|ksh|-ksh|sh|-sh) return 0;; esac
-   fi
-   return 1  # NOT sourced.
- }
+  if [ -n "$ZSH_VERSION" ]; then 
+    case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
+  else  # Add additional POSIX-compatible shell names here, if needed.
+    case ${0##*/} in dash|-dash|bash|-bash|ksh|-ksh|sh|-sh) return 0;; esac
+  fi
+  return 1  # NOT sourced.
+}
 
- if is_sourced; then
-   echo "This script should not be sourced. Invoke it using a subshell."
-   return 1
- fi
+if is_sourced; then
+  echo "This script should not be sourced. Invoke it using a subshell."
+  return 0
+fi
 
 dotfiles_dest_dir="$HOME/.dotfiles"
 
 # TODO: Handling of existing dotfiles directory
 if [ -d "$dotfiles_dest_dir" ]; then
   echo "Dotfiles directory already exists. Exiting..."
-  exit 1
+  exit 0
 fi
 
 # Detect the OS
 if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    OS=$ID
+  . /etc/os-release
+  OS=$ID
 else
-    echo "Cannot detect OS"
-    exit 1
+  echo "Cannot detect OS"
+  exit 0
 fi
 
 script_dir="$(dirname "$0")"
@@ -39,31 +39,31 @@ cp -r "$dotfiles_dir" "$HOME"
 
 # Install packages based on OS
 case $OS in
-    "ubuntu")
-        sudo apt update
-            if ! command -v ansible &> /dev/null; then
-                sudo DEBIAN_FRONTEND=noninteractive apt install -y ansible --no-install-recommends
-            fi
-        ;;
-    
-      "fedora"|"fedoraremixforwsl")
-        sudo dnf check-update || true  # dnf check-update exits with 100 if updates are available
-            if ! command -v ansible &> /dev/null; then
-                sudo dnf install -y ansible
-            fi
-        ;;
-    
-    *)
-        echo "Unsupported OS: $OS"
-        exit 1
-        ;;
+  "ubuntu")
+    sudo apt update
+    if ! command -v ansible > /dev/null 2>&1; then
+      sudo DEBIAN_FRONTEND=noninteractive apt install -y ansible --no-install-recommends
+    fi
+    ;;
+
+  "fedora"|"fedoraremixforwsl")
+    sudo dnf check-update || true  # dnf check-update exits with 100 if updates are available
+    if ! command -v ansible > /dev/null 2>&1; then
+      sudo dnf install -y ansible
+    fi
+    ;;
+
+  *)
+    echo "Unsupported OS: $OS"
+    exit 0
+    ;;
 esac
 
-if command -v ansible-galaxy &> /dev/null; then
+if command -v ansible-galaxy > /dev/null 2>&1; then
   ansible-galaxy collection install -r "$dotfiles_dest_dir/ansible/requirements.yml"
 fi
 
-if command -v ansible &> /dev/null; then
+if command -v ansible > /dev/null 2>&1; then
   ansible-playbook "$dotfiles_dest_dir/ansible/site.yml"
 fi
 

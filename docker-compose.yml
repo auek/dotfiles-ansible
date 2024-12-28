@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   dotfiles-ubuntu:
     build:
@@ -6,8 +5,8 @@ services:
       dockerfile: Dockerfile.ubuntu
     image: auek/dotfiles-ansible:ubuntu
     container_name: dotfiles-ubuntu
-    # volumes:
-      # - ./.dotfiles:/home/devuser/.dotfiles
+    volumes:
+      - ./.dotfiles:/home/devuser/code/.dotfiles
     # Keep container running
     tty: true
     stdin_open: true
@@ -17,8 +16,8 @@ services:
       dockerfile: Dockerfile.fedora
     image: auek/dotfiles-ansible:fedora
     container_name: dotfiles-fedora
-    # volumes:
-      # - ./.dotfiles:/home/devuser/.dotfiles
+    volumes:
+      - ./.dotfiles:/home/devuser/code/.dotfiles
     # Keep container running
     tty: true
     stdin_open: true
