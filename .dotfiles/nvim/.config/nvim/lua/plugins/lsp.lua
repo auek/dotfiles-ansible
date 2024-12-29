@@ -19,9 +19,6 @@ return {
   },
   init = function()
     local lsp_zero = require("lsp-zero")
-    lsp_zero.on_attach(function(_, bufnr)
-      lsp_zero.default_keymaps({ bufnr = bufnr })
-    end)
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
@@ -50,4 +47,14 @@ return {
       },
     })
   end,
+  keys = {
+    { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
+    { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",   mode = "n",          desc = "Go to declaration" },
+    { "gh",         function() return vim.lsp.buf.hover() end,  desc = "Hover" },
+    { "<leader>ca", vim.lsp.buf.code_action,                    mode = { "n", "v" }, desc = "Code Action",        has = "codeAction" },
+    { "<leader>cr", vim.lsp.buf.rename,                         desc = "Rename",     has = "rename" },
+    { "[d",         "<cmd>lua vim.diagnostic.goto_prev()<CR>",  mode = "n",          desc = "Previous diagnostic" },
+    { "]d",         "<cmd>lua vim.diagnostic.goto_next()<CR>",  mode = "n",          desc = "Next diagnostic" },
+    { "<leader>d",  "<cmd>lua vim.diagnostic.open_float()<CR>", mode = "n",          desc = "Open diagnostics" },
+  }
 }
