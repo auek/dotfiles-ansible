@@ -22,10 +22,6 @@ dotfiles_dest_dir="$(realpath "$HOME/.dotfiles")"
 if [ -d "$dotfiles_dest_dir" ]; then
   echo "Dotfiles directory already exists. Exiting..."
   exit 0
-else
-  script_dir="$(dirname "$0")"
-  src_dir="$(realpath "$script_dir/../../.dotfiles")"
-  ln -s "$src_dir" "$dotfiles_dest_dir"
 fi
 
 # Detect the OS
@@ -59,6 +55,11 @@ case $OS in
     exit 0
     ;;
 esac
+
+# Create a symbolic link to the dotfiles directory
+script_dir="$(dirname "$0")"
+src_dir="$(realpath "$script_dir/../../.dotfiles")"
+ln -s "$src_dir" "$dotfiles_dest_dir"
 
 if command -v ansible-galaxy > /dev/null 2>&1; then
   ansible-galaxy collection install -r "$dotfiles_dest_dir/ansible/requirements.yml"
