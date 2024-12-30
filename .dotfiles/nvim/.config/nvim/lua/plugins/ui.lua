@@ -71,9 +71,6 @@ return {
     config = true,
   },
 
-  -- Start page
-  { "mhinz/vim-startify" },
-
   -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",

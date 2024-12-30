@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 ### Binds ###
 bindkey "[D" backward-word
 bindkey "[C" forward-word
@@ -14,10 +16,10 @@ alias ....="cd ../../../.."
 
 # if exa is installed, use it instead of ls
 if command -v exa &> /dev/null; then
-    alias l="exa"
-    alias ls="exa"
-    alias ll="exa -lah"
-    alias t="exa --icons --classify --sort=type -T -L 2"
+  alias l="exa"
+  alias ls="exa"
+  alias ll="exa -lah"
+  alias t="exa --icons --classify --sort=type -T -L 2"
 fi
 alias vim="nvim"
 alias fd="fdfind"
@@ -48,32 +50,18 @@ SAVEHIST=500000
 setopt appendhistory
 setopt INC_APPEND_HISTORY  
 setopt SHARE_HISTORY
+#
+# Turn off audio bell
+unsetopt BEEP
 
 # Case-insensitive completion
 autoload -Uz compinit && compinit
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
 
-# Turn off audio bell
-unsetopt BEEP
 
-: <<'END'
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND="fd --hidden --follow -E '**/node_modules/**' -E '**/.git/**' -E '.git'"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-_fzf_compgen_path() {
-    fd --hidden -E "**/node_modules/**" -E "**/.git/**" -E ".git" . "$1"
-}
-
-_fzf_compgen_dir() {
-    fd --type d --hidden -E "**/node_modules/**" -E "**/.git/**" -E ".git" . "$1"
-}
-END
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 
 ### OMZ ###
 export ZSH="$HOME/.oh-my-zsh"
@@ -85,10 +73,16 @@ plugins=(git ssh-agent zsh-autosuggestions)
 zstyle ':omz:*' aliases no
 
 # Add ssh keys to agent
-zstyle :omz:plugins:ssh-agent identities id_ed25519 id_ed25519_contabo
+zstyle :omz:plugins:ssh-agent identities id_ed25519 
 
 #source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
 
 # Start tmux if not already running
-if [ "$TMUX" = "" ]; then tmux; fi
+if [ "$TMUX" = "" ]; then
+  # Start new session without detaching
+  tmux new-session -s dev \; \
+    split-window -v -p 30 \; \
+    split-window -h -p 50 \; \
+    select-pane -t 0
+fi
