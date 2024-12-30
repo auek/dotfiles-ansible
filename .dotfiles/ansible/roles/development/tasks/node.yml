@@ -1,9 +1,8 @@
 - name: Install Node using NVM
   ansible.builtin.shell:
     cmd: |
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      nvm install node --lts 2>&1
+      source ~/.zprofile && nvm install node --lts 2>&1
+    executable: /bin/zsh
   register: nvm_result
   changed_when: >
     'is already installed' not in nvm_result.stdout

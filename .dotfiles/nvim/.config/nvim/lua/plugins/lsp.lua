@@ -32,7 +32,9 @@ return {
         "astro",
       },
       handlers = {
-        lsp_zero.default_setup,
+        lsp_zero.default_setup({
+          set_lsp_keymaps = false
+        }),
         lua_ls = function()
           require("lspconfig").lua_ls.setup({
             settings = {

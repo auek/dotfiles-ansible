@@ -30,7 +30,7 @@ or
 
 afterwards, switch to zsh:
 
-`exec zsh`
+`exec zsh -l`
 
 ### Stop and remove the container
 `docker-compose down`

@@ -30,6 +30,10 @@ return {
     "nvim-telescope/telescope.nvim",
     version = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+      local telescope = require("telescope")
+      telescope.load_extension("notify")
+    end,
     opts = {
       pickers = {
         find_files = {
@@ -58,7 +62,8 @@ return {
       { "<leader>fo", "<cmd>Telescope oldfiles<CR>",   mode = "n", desc = "Old files" },
       { "<leader>fh", "<cmd>Telescope help_tags<CR>",  mode = "n", desc = "Help tags" },
       { "<leader>ls", "<cmd>Telescope buffers<CR>",    mode = "n", desc = "List buffers" },
-      { "<leader>ma", "<cmd>Telescope marks<CR>",      mode = "n", desc = "List marks" }, },
+      { "<leader>ma", "<cmd>Telescope marks<CR>",      mode = "n", desc = "List marks" },
+    },
   },
 
   -- Key binding hints
@@ -69,6 +74,14 @@ return {
     "folke/trouble.nvim",
     dependencies = "kyazdani42/nvim-web-devicons",
     config = true,
+  },
+
+  -- Notifications
+  {
+    "rcarriga/nvim-notify",
+    init = function()
+      vim.notify = require("notify")
+    end,
   },
 
   -- Markdown preview

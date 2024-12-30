@@ -4,3 +4,6 @@
 
 - name: Include node tasks
   ansible.builtin.include_tasks: node.yml
+
+- name: Include tldr tasks
+  ansible.builtin.include_tasks: tldr.yml

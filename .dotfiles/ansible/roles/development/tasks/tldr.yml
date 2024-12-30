@@ -1,0 +1,13 @@
+- name: Install tldr using npm
+  ansible.builtin.shell:
+    cmd: |
+      source ~/.zprofile && npm install -g tldr
+    executable: /bin/zsh
+  become: false
+
+- name: Update tldr index
+  ansible.builtin.shell:
+    cmd: |
+      source ~/.zprofile && tldr --update
+    executable: /bin/zsh
+  become: false

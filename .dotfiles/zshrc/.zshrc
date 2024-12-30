@@ -40,9 +40,6 @@ alias gcb="git checkout -b"
 
 ### Settings ###
 
-# PATH
-export PATH="$HOME/.local/bin:$PATH"
-
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=500000
@@ -58,13 +55,6 @@ unsetopt BEEP
 autoload -Uz compinit && compinit
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
 
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-### OMZ ###
-export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 plugins=(git ssh-agent zsh-autosuggestions)
