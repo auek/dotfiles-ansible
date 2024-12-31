@@ -1,3 +1,4 @@
+---
 - name: Install tldr using npm
   ansible.builtin.shell:
     cmd: |

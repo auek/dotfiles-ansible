@@ -66,6 +66,87 @@ return {
     },
   },
 
+  -- Start screen
+  {
+    "glepnir/dashboard-nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("dashboard").setup({
+        theme = 'doom',
+        config = {
+          header = {
+            "                                                     ",
+            "                                                     ",
+            "                                                     ",
+            "                                                     ",
+            "                                                     ",
+            "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+            "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+            "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+            "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+            "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+            "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+            "                                                     ",
+            "                                                     ",
+            "                                                     ",
+          },
+          center = {
+            {
+              icon = "󰈞 ",
+              icon_hl = "Title",
+              desc = "Find File",
+              desc_hl = "String",
+              key = "f",
+              keymap = "SPC f f",
+              key_hl = "Number",
+              action = "Telescope find_files"
+            },
+            {
+              icon = "󰊄 ",
+              icon_hl = "Title",
+              desc = "Find Text",
+              desc_hl = "String",
+              key = "g",
+              keymap = "SPC f g",
+              key_hl = "Number",
+              action = "Telescope live_grep"
+            },
+            {
+              icon = "󰈚 ",
+              icon_hl = "Title",
+              desc = "Recent Files",
+              desc_hl = "String",
+              key = "r",
+              keymap = "SPC f o",
+              key_hl = "Number",
+              action = "Telescope oldfiles"
+            },
+            {
+              icon = "󰈔 ",
+              icon_hl = "Title",
+              desc = "New File",
+              desc_hl = "String",
+              key = "n",
+              keymap = "SPC f n",
+              key_hl = "Number",
+              action = "DashboardNewFile"
+            },
+            {
+              icon = "󰊅 ",
+              icon_hl = "Title",
+              desc = "Settings",
+              desc_hl = "String",
+              key = "s",
+              keymap = "SPC f s",
+              key_hl = "Number",
+              action = "Telescope vim_options"
+            },
+          }
+        }
+      })
+    end,
+  },
   -- Key binding hints
   { "folke/which-key.nvim", config = true },
 

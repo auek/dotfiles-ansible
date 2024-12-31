@@ -10,8 +10,8 @@ map("n", "<leader>p", '"*p', default_opts)
 -- Buffers
 map("n", "<c-n>", "<cmd>bnext<CR>", default_opts)
 map("n", "<c-p>", "<cmd>bprev<CR>", default_opts)
-map("n", "<leader>b", ":bd<CR>", default_opts)
-map("n", "<leader>d", ":b#|bd#<CR>", default_opts)
+map("n", "<leader>d", ":bd<CR>", default_opts)
+map("n", "<leader>b", ":b#|bd#<CR>", default_opts)
 
 -- Windows
 map("n", "<leader>q", ":q<CR>", default_opts)
