@@ -1,6 +1,6 @@
 ---
 - name: Clone nvim repository
-  git:
+  ansible.builtin.git:
     repo: https://github.com/neovim/neovim
     dest: "{{ ansible_env.HOME }}/src/nvim"
     clone: true
@@ -9,7 +9,7 @@
 
 - name: Install nvim build dependencies
   become: true
-  apt:
+  ansible.builtin.apt:
     name:
       - ninja-build
       - gettext

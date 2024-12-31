@@ -32,9 +32,8 @@ return {
         "astro",
       },
       handlers = {
-        lsp_zero.default_setup({
-          set_lsp_keymaps = false
-        }),
+        lsp_zero.default_setup
+        ,
         lua_ls = function()
           require("lspconfig").lua_ls.setup({
             settings = {
@@ -46,6 +45,20 @@ return {
             },
           })
         end,
+        -- ansiblels = function()
+        --   require("lspconfig").ansiblels.setup({
+        --     settings = {
+        --       ansible = {
+        --         validation = {
+        --           lint = {
+        --             enabled = true,
+        --             path = vim.fn.exepath("ansible-lint"),
+        --           },
+        --         }
+        --       },
+        --     },
+        --   })
+        -- end,
       },
     })
   end,

@@ -22,8 +22,6 @@ if command -v exa &> /dev/null; then
   alias t="exa --icons --classify --sort=type -T -L 2"
 fi
 alias vim="nvim"
-alias fd="fdfind"
-alias python="python3"
 
 
 # Git

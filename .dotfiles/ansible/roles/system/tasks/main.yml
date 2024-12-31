@@ -8,21 +8,21 @@
 
     - name: Install common packages
       ansible.builtin.package:
-        name: "{{ common_packages }}"
+        name: "{{ system_common_packages }}"
         state: present
 
     - name: Install optional packages
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
-      loop: "{{ optional_packages }}"
+      loop: "{{ system_optional_packages }}"
       register: optional_install
       failed_when: false
 
     - name: Report failed optional package installations
       ansible.builtin.debug:
         msg: "Optional package {{ item.item }} could not be installed"
-      loop: "{{ optional_install.results }}"
+      loop: "{{ system_optional_install.results }}"
       when: item.failed is defined and item.failed
 
     - name: Set zsh as shell

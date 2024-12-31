@@ -1,8 +1,10 @@
 - name: Install tldr using npm
   ansible.builtin.shell:
     cmd: |
-      source ~/.zprofile && npm install -g tldr
+      source ~/.zprofile && npm list -g tldr || npm install -g tldr
     executable: /bin/zsh
+  register: tldr_install
+  changed_when: "'+ tldr@' not in tldr_install.stdout"
   become: false
 
 - name: Update tldr index
@@ -10,4 +12,6 @@
     cmd: |
       source ~/.zprofile && tldr --update
     executable: /bin/zsh
+  register: tldr_update
+  changed_when: "'Updated cache' in tldr_update.stdout"
   become: false

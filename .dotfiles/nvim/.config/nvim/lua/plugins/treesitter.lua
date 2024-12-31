@@ -42,5 +42,5 @@ return {
 
   {
     "pearofducks/ansible-vim"
-  },
+  }
 }
