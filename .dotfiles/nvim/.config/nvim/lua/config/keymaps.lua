@@ -10,15 +10,14 @@ map("n", "<leader>p", '"*p', default_opts)
 -- Buffers
 map("n", "<c-n>", "<cmd>bnext<CR>", default_opts)
 map("n", "<c-p>", "<cmd>bprev<CR>", default_opts)
-map("n", "<leader>q", ":b#|bd#<CR>", default_opts)
+map("n", "<leader>b", ":bd<CR>", default_opts)
+map("n", "<leader>d", ":b#|bd#<CR>", default_opts)
+
+-- Windows
+map("n", "<leader>q", ":q<CR>", default_opts)
 map("n", "<leader>w", ":w<CR>", default_opts)
 
--- map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", default_opts)
--- map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", default_opts)
--- map("n", "[d", vim.diagnostic.goto_prev, default_opts)
--- map("n", "]d", vim.diagnostic.goto_next, default_opts)
--- map("n", "<leader>d", vim.diagnostic.open_float, default_opts)
-
+-- Save
 vim.cmd("com! W w")
 vim.cmd("com! Wq wq")
 vim.cmd("com! WQ wq")
