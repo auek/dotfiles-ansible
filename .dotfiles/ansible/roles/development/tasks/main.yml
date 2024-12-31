@@ -7,3 +7,6 @@
 
 - name: Include tldr tasks
   ansible.builtin.include_tasks: tldr.yml
+
+- name: Include ansible-lint tasks
+  ansible.builtin.include_tasks: ansible_lint.yml

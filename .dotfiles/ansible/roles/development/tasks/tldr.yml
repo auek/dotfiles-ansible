@@ -4,7 +4,7 @@
       source ~/.zprofile && npm list -g tldr || npm install -g tldr
     executable: /bin/zsh
   register: tldr_install
-  changed_when: "'+ tldr@' not in tldr_install.stdout"
+  changed_when: "'+ tldr@' in tldr_install.stdout"
   become: false
 
 - name: Update tldr index
