@@ -2,6 +2,41 @@
 
 set -e
 
+# Exit codes
+readonly E_SUCCESS=0
+readonly E_GENERIC_FAILURE=1
+readonly E_SOURCED=2
+readonly E_DOTFILES_EXISTS=3
+readonly E_OS_NOT_DETECTED=4
+
+dotfiles_dest_dir="$(realpath "$HOME/.dotfiles")"
+
+OS=""
+
+print_and_exit() {
+  exit_code=$?
+
+  case $exit_code in
+    "$E_SUCCESS")
+      # do nothing
+      ;;
+    "$E_SOURCED")
+      echo "This script should not be sourced. Invoke it using a subshell."
+      ;;
+    "$E_DOTFILES_EXISTS")
+      echo "Dotfiles directory already exist"
+      ;;
+    "$E_OS_NOT_DETECTED")
+      echo "Cannot detect OS"
+      ;;
+    *)
+      echo "Unknown error"
+      ;;
+  esac
+
+  exit $exit_code
+}
+
 is_sourced() {
   if [ -n "$ZSH_VERSION" ]; then 
     case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
@@ -11,26 +46,35 @@ is_sourced() {
   return 1  # NOT sourced.
 }
 
+
+dotfiles_exists() {
+  [ -d "$dotfiles_dest_dir" ]
+}
+
+os_is_detected() {
+  if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+  else
+    exit 1
+  fi
+}
+
+
+trap print_and_exit EXIT
+
 if is_sourced; then
-  echo "This script should not be sourced. Invoke it using a subshell."
-  return 0
+  # check if this works
+  return $E_SOURCED
 fi
 
-dotfiles_dest_dir="$(realpath "$HOME/.dotfiles")"
 
-# TODO: Handling of existing dotfiles directory
-if [ -d "$dotfiles_dest_dir" ]; then
-  echo "Dotfiles directory already exists. Exiting..."
-  exit 0
+if dotfiles_exists; then
+  exit $E_DOTFILES_EXISTS
 fi
 
-# Detect the OS
-if [ -f /etc/os-release ]; then
-  . /etc/os-release
-  OS=$ID
-else
-  echo "Cannot detect OS"
-  exit 0
+if ! os_is_detected;  then
+  exit $E_OS_NOT_DETECTED
 fi
 
 
@@ -52,7 +96,7 @@ case $OS in
 
   *)
     echo "Unsupported OS: $OS"
-    exit 0
+    exit $E_GENERIC_FAILURE
     ;;
 esac
 
