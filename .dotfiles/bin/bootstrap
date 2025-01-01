@@ -1,36 +1,39 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 # Exit codes
 readonly E_SUCCESS=0
 readonly E_GENERIC_FAILURE=1
-readonly E_SOURCED=2
+readonly E_SOURCED=2 # TODO: Ansible also exists with this code
 readonly E_DOTFILES_EXISTS=3
 readonly E_OS_NOT_DETECTED=4
 
 dotfiles_dest_dir="$(realpath "$HOME/.dotfiles")"
-
 OS=""
+
+error() {
+    printf >&2 "Error: %s\n" "$*"
+}
 
 print_and_exit() {
   exit_code=$?
 
   case $exit_code in
     "$E_SUCCESS")
-      # do nothing
+      printf "✓ Success\n"
       ;;
     "$E_SOURCED")
-      echo "This script should not be sourced. Invoke it using a subshell."
+      error "This script should not be sourced. Invoke it using a subshell."
       ;;
     "$E_DOTFILES_EXISTS")
-      echo "Dotfiles directory already exist"
+      error "Dotfiles directory already exist at $dotfiles_dest_dir"
       ;;
     "$E_OS_NOT_DETECTED")
-      echo "Cannot detect OS"
+      error "Cannot detect OS"
       ;;
     *)
-      echo "Unknown error"
+      error "Unknown error"
       ;;
   esac
 
@@ -46,7 +49,6 @@ is_sourced() {
   return 1  # NOT sourced.
 }
 
-
 dotfiles_exists() {
   [ -d "$dotfiles_dest_dir" ]
 }
@@ -60,14 +62,12 @@ os_is_detected() {
   fi
 }
 
-
 trap print_and_exit EXIT
 
 if is_sourced; then
   # check if this works
   return $E_SOURCED
 fi
-
 
 if dotfiles_exists; then
   exit $E_DOTFILES_EXISTS
@@ -76,7 +76,6 @@ fi
 if ! os_is_detected;  then
   exit $E_OS_NOT_DETECTED
 fi
-
 
 # Install packages based on OS
 case $OS in
@@ -112,4 +111,7 @@ fi
 if command -v ansible > /dev/null 2>&1; then
   ansible-playbook "$dotfiles_dest_dir/ansible/site.yml"
 fi
+
+# Installation complete, start zsh
+exec zsh -l
 

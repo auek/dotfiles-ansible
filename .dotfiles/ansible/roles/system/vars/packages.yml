@@ -7,7 +7,6 @@ system_common_packages:
   - pipx
   - python3 # Should already be installed but keeping it here for reference
   - python3-pip
-  - python3-venv
   - stow
   - tmux
   - zsh
@@ -18,3 +17,5 @@ system_optional_packages:
   - htop
   - openssh-client
   - ripgrep
+  - python3-virtualenv
+  - python3-venv
