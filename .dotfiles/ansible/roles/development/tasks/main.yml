@@ -1,12 +1,32 @@
 ---
 - name: Include nvm tasks
-  ansible.builtin.include_tasks: nvm.yml
+  ansible.builtin.include_tasks:
+    file: nvm.yml
+    apply:
+      tags:
+        - development
+        - full
 
 - name: Include node tasks
-  ansible.builtin.include_tasks: node.yml
+  ansible.builtin.include_tasks:
+    file: node.yml
+    apply:
+      tags:
+        - development
+        - full
 
 - name: Include tldr tasks
-  ansible.builtin.include_tasks: tldr.yml
+  ansible.builtin.include_tasks:
+    file: tldr.yml
+    apply:
+      tags:
+        - development
+        - full
 
 - name: Include ansible-lint tasks
-  ansible.builtin.include_tasks: ansible_lint.yml
+  ansible.builtin.include_tasks:
+    file: ansible_lint.yml
+    apply:
+      tags:
+        - development
+        - full
