@@ -1,39 +1,59 @@
 # Dotfiles - automated setup of development environment
 
+Using ansible to automate the setup of a development environment.
+
+## Features
+
+- 🛠️ Automated system configuration
+- 📁 Dotfiles management
+- 🐚 ZSH shell setup
+- 🔧 Development tools installation
+- 🐳 Docker support for testing
+
 ## Prerequisites
-Ubuntu 24.04 or Fedora 40+
+- **Operating System:**
+    - Ubuntu 24.04
+    - Fedora 40+
+- Docker (optional, for testing)
+- Empty or non-existant `$HOME/.dotfiles` directory
 
-Docker (if you want to use it)
+## Installation Options
 
-## Docker instructions
+### 1. Using Docker (Recommended for testing)
 
-### Starting the containers and watching the logs
+#### Basic Usage
+```bash
+# See all available options
+bash docker-run.sh --help
 
-`bash docker-run.sh ubuntu`
+# Run the full setup for Ubuntu
+bash docker-run.sh 
 
-or
+# Or customize the setup
+bash docker-run.sh -d fedora -t slim
 
-`bash docker-run.sh fedora`
+```
 
-after the bootstrap is done, it should reload the shell and start the zsh shell
+#### Docker reference
+```bash
+# Connect to running container
+docker compose exec -it dotfiles-ubuntu zsh -l # for Ubuntu
+docker compose exec -it dotfiles-fedora zsh -l # for Fedora
 
-### Connecting to the container manually
+# Stop and remove the containers
+docker compose down
 
-`docker compose exec -it dotfiles-ubuntu zsh -l`
+# Remove the image
+docker rmi auek/dotfiles-ansible:ubuntu # for Ubuntu
+docker rmi auek/dotfiles-ansible:fedora # for Fedora
 
-or
+```
 
-`docker compose exec -it dotfiles-fedora zsh -l`
+### 2. Direct Installation (For actual system setup) DO AT YOUR OWN RISK
 
-### Stop and remove the containers
-`docker compose down`
-
-### Remove the image
-`docker rmi auek/dotfiles-ansible:ubuntu`
-
-or
-
-`docker rmi auek/dotfiles-ansible:fedora`
+```bash
+bash .dotfiles/bin/bootstrap 
+```
 
 
 

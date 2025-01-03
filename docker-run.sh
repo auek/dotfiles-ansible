@@ -4,9 +4,35 @@
 distro=""
 tags=""
 
+usage() {
+    echo "Docker Development Environment Setup Script"
+    echo
+    echo "Usage: $0 [-d|--distros <distro>] [-t|--tags <tags>]"
+    echo
+    echo "Options:"
+    echo "  -h, --help              Show this help message"
+    echo "  -d, --distros <distro>  Specify distribution (ubuntu|fedora)"
+    echo "                          Default: ubuntu"
+    echo "  -t, --tags <tags>       Specify installation tags:"
+    echo "                          - full: Complete development environment (default)"
+    echo "                          - slim: Minimal installation"
+    echo "                          - Or specific components: system,dotfiles,shell,development"
+    echo
+    echo "Examples:"
+    echo "  $0                      # Run with defaults (ubuntu, full)"
+    echo "  $0 -d fedora           # Run full installation on Fedora"
+    echo "  $0 -d ubuntu -t slim   # Run minimal installation on Ubuntu"
+    echo "  $0 -t system,dotfiles  # Install specific components on Ubuntu"
+    echo
+    exit 1
+}
+
 # Loop through all the arguments
 while [ "$1" != "" ]; do
     case $1 in
+        -h | --help)
+            usage
+            ;;
         --distro=*)
             distro="${1#*=}"   # Extract the value after '='
             ;;
