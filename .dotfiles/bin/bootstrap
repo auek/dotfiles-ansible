@@ -9,7 +9,7 @@ readonly E_SOURCED=2 # TODO: Ansible also exists with this code
 readonly E_DOTFILES_EXISTS=3
 readonly E_OS_NOT_DETECTED=4
 
-dotfiles_dest_dir="$(realpath "$HOME/.dotfiles")"
+dotfiles_dest_dir="$HOME/.dotfiles"
 OS=""
 
 error() {
@@ -45,12 +45,13 @@ is_sourced() {
     case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
   else  # Add additional POSIX-compatible shell names here, if needed.
     case ${0##*/} in dash|-dash|bash|-bash|ksh|-ksh|sh|-sh) return 0;; esac
-  fi
   return 1  # NOT sourced.
+  fi
 }
 
 dotfiles_exists() {
-  [ -d "$dotfiles_dest_dir" ]
+  [ -d "$dotfiles_dest_dir" ] &&
+  [ -n "$(ls -A "$dotfiles_dest_dir")" ]
 }
 
 os_is_detected() {
@@ -61,6 +62,9 @@ os_is_detected() {
     exit 1
   fi
 }
+
+# TODO: cleaup
+first_arg="$1"
 
 trap print_and_exit EXIT
 
@@ -109,7 +113,7 @@ if command -v ansible-galaxy > /dev/null 2>&1; then
 fi
 
 if command -v ansible > /dev/null 2>&1; then
-  ansible-playbook "$dotfiles_dest_dir/ansible/site.yml"
+  ansible-playbook "$dotfiles_dest_dir/ansible/site.yml" ${first_arg:+--tags $first_arg}
 fi
 
 # Installation complete, start zsh
