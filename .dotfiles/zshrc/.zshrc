@@ -35,6 +35,7 @@ alias gcane="git commit --amend --no-edit"
 alias gcam="git commit -am"
 alias gco="git checkout"
 alias gcb="git checkout -b"
+alias gcm="git checkout main || git checkout master"
 
 ### Settings ###
 
