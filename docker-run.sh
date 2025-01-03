@@ -11,7 +11,7 @@ usage() {
     echo
     echo "Options:"
     echo "  -h, --help              Show this help message"
-    echo "  -d, --distros <distro>  Specify distribution (ubuntu|fedora)"
+    echo "  -d, --distro <distro>  Specify distribution (ubuntu|fedora)"
     echo "                          Default: ubuntu"
     echo "  -t, --tags <tags>       Specify installation tags:"
     echo "                          - full: Complete development environment (default)"

@@ -32,6 +32,7 @@ bash docker-run.sh
 # Or customize the setup
 bash docker-run.sh -d fedora -t slim
 
+# When the script is done, you will be in the container's zsh shell
 ```
 
 #### Docker reference
