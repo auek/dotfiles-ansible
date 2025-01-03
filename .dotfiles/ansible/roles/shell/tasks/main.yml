@@ -4,6 +4,5 @@
     file: ohmyzsh.yml
     apply:
       tags:
-        - shell
         - full
         - slim

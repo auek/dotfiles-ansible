@@ -5,13 +5,15 @@
     - name: Include package variables
       ansible.builtin.include_vars:
         file: vars/packages.yml
+      tags:
+        - full
+        - slim
 
     - name: Install common packages
       ansible.builtin.package:
         name: "{{ system_common_packages }}"
         state: present
       tags:
-        - system
         - full
         - slim
 
@@ -22,8 +24,8 @@
       loop: "{{ system_optional_packages }}"
       register: optional_install
       failed_when: false
+      when: "'full' in ansible_run_tags"
       tags:
-        - system
         - full
 
     - name: Set zsh as shell
@@ -31,15 +33,13 @@
         name: devuser
         shell: /bin/zsh
       tags:
-        - system
         - full
         - slim
 
     - name: Report failed optional package installations
       ansible.builtin.debug:
         msg: "Optional package {{ item.item }} could not be installed"
-      loop: "{{ system_optional_install.results }}"
+      loop: "{{ optional_install.results }}"
       when: item.failed is defined and item.failed
       tags:
-        - system
         - full
