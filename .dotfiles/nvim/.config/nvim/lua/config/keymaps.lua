@@ -10,7 +10,7 @@ map("n", "<leader>p", '"*p', default_opts)
 -- Buffers
 map("n", "<c-n>", "<cmd>bnext<CR>", default_opts)
 map("n", "<c-p>", "<cmd>bprev<CR>", default_opts)
-map("n", "<leader>d", ":bd<CR>", default_opts)
+-- map("n", "<leader>d", ":bd<CR>", default_opts) # TODO: This clashes with Telescope
 map("n", "<leader>b", ":b#|bd#<CR>", default_opts)
 
 -- Windows
