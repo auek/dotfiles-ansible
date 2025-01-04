@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Default values for options
-distro=""
-tags=""
+distro="ubuntu"
+tags="full"
 
 usage() {
     echo "Docker Development Environment Setup Script"

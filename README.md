@@ -12,7 +12,7 @@ Using ansible to automate the setup of a development environment.
 
 ## Prerequisites
 - **Operating System:**
-    - Ubuntu 24.04
+    - Ubuntu 22.04+
     - Fedora 40+
 - Docker (optional, for testing)
 - Empty or non-existant `$HOME/.dotfiles` directory
@@ -28,6 +28,8 @@ bash docker-run.sh --help
 
 # Run the full setup for Ubuntu
 bash docker-run.sh 
+
+# Note that .dotfiles will be mounted to the container, which can be useful for testing
 
 # Or customize the setup
 bash docker-run.sh -d fedora -t slim
