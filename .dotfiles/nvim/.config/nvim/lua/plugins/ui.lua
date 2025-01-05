@@ -25,13 +25,15 @@ return {
     end,
   },
 
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
   -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
     version = "0.1.8",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    },
     init = function()
       local telescope = require("telescope")
       telescope.load_extension("notify")
@@ -149,7 +151,7 @@ return {
     end,
   },
   -- Key binding hints
-  { "folke/which-key.nvim",                     config = true },
+  { "folke/which-key.nvim", config = true },
 
   -- Diagnostics window
   {
