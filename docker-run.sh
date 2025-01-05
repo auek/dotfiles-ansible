@@ -17,6 +17,7 @@ usage() {
   echo "                          - full: Complete development environment (default)"
   echo "                          - slim: Minimal installation"
   echo "                          - Or specific components: system,dotfiles,shell,development"
+  echo "                          Default: full"
   echo
   echo "Examples:"
   echo "  $0                      # Run with defaults (ubuntu, full)"
@@ -27,25 +28,24 @@ usage() {
   exit 1
 }
 
-# Loop through all the arguments
 while [ "$1" != "" ]; do
   case $1 in
     -h | --help)
       usage
       ;;
     --distro=*)
-      distro="${1#*=}"   # Extract the value after '='
+      distro="${1#*=}"
       ;;
     -d)
       shift
-      distro="$1"       # The next argument is the value for the short name
+      distro="$1"
       ;;
     --tags=*)
-      tags="${1#*=}"   # Extract the value after '='
+      tags="${1#*=}"
       ;;
     -t)
       shift
-      tags="$1"       # The next argument is the value for the short name
+      tags="$1"
       ;;
     *)
       echo "Invalid option: $1"

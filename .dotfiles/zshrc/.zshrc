@@ -75,3 +75,6 @@ if [ "$TMUX" = "" ]; then
     split-window -h -p 50 \; \
     select-pane -t 0
 fi
+
+# fzf key binding and fuzzy completion
+source <(fzf --zsh)

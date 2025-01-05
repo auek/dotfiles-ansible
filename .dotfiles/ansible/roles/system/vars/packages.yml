@@ -14,8 +14,9 @@ system_common_packages:
 system_optional_packages:
   - exa
   - fd-find
+  - fzf
   - htop
   - openssh-client
-  - ripgrep
-  - python3-virtualenv
   - python3-venv
+  - python3-virtualenv
+  - ripgrep

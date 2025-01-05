@@ -25,6 +25,8 @@ return {
     end,
   },
 
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+
   -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
@@ -33,27 +35,26 @@ return {
     init = function()
       local telescope = require("telescope")
       telescope.load_extension("notify")
+      telescope.load_extension("fzf")
     end,
     opts = {
+      defaults = {
+        file_ignore_patterns = {
+          "node_modules", "build", "dist", "yarn.lock", ".git", ".cache", ".DS_Store"
+        },
+      },
       pickers = {
         find_files = {
-          find_command = {
-            "rg",
-            "--files",
-            "--hidden",
-            "--glob", "!**/.git/*",
-            "--glob", "!**/node_modules/*"
-          },
-        },
-        live_grep = {
-          additional_args = function()
-            return {
-              "--hidden",
-              "--glob", "!**/.git/*",
-              "--glob", "!**/node_modules/*"
-            }
-          end,
-        },
+          hidden = true
+        }
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        }
       },
     },
     keys = {
@@ -148,7 +149,7 @@ return {
     end,
   },
   -- Key binding hints
-  { "folke/which-key.nvim", config = true },
+  { "folke/which-key.nvim",                     config = true },
 
   -- Diagnostics window
   {

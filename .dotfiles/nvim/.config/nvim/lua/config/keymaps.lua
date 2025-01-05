@@ -1,6 +1,7 @@
 local map = vim.keymap.set
 local default_opts = { silent = true, noremap = true }
 
+-- Esc
 map("i", "jj", "<Esc>", {})
 
 -- Copy/Paste
