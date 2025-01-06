@@ -42,7 +42,7 @@ return {
     opts = {
       defaults = {
         file_ignore_patterns = {
-          "node_modules", "build", "dist", "yarn.lock", ".git", ".cache", ".DS_Store"
+          "node_modules", "build", "dist", ".git", ".cache"
         },
       },
       pickers = {

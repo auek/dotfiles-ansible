@@ -10,3 +10,4 @@ export NVM_DIR="$HOME/.nvm"
 
 ### OMZ ###
 export ZSH="$HOME/.oh-my-zsh"
+

@@ -20,3 +20,4 @@ system_optional_packages:
   - python3-venv
   - python3-virtualenv
   - ripgrep
+  - bat

@@ -76,5 +76,15 @@ if [ "$TMUX" = "" ]; then
     select-pane -t 0
 fi
 
-# fzf key binding and fuzzy completion
+FZF_CMD_ARGS="--hidden --exclude .git --exclude node_modules --exclude .cache --exclude .venv --exclude cache"
+
+# FZF
+export FZF_DEFAULT_COMMAND="fd --type f $FZF_CMD_ARGS"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d $FZF_CMD_ARGS"
+
+export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && bat --color=always --style=header,grid --line-range :500 {} || echo {} is a directory"'
+
 source <(fzf --zsh)
+
+
