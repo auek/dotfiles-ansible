@@ -30,9 +30,18 @@ map("v", "<F9>", ":sort<CR>", default_opts)
 -- Regular grep EXCLUDING aider chat history (normal use)
 map("n", "<leader>fg", function()
   require('telescope.builtin').live_grep({
-    additional_args = function()
-      return { "--glob=!*.aider.chat.history.*", "--glob=!**/.aider/*" }
-    end
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+      "--glob=!*.aider.chat.history.*",
+      "--glob=!**/.aider/*"
+    }
   })
 end, { desc = "Live grep (exclude aider)" })
 
