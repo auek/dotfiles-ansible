@@ -1,2 +1,7 @@
 
 .aider*
+node_modules/
+dist/
+build/
+.cache/
+target/

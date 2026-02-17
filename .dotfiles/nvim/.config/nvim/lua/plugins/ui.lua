@@ -50,7 +50,7 @@ return {
           hidden = true
         },
         live_grep = {
-          additional_args = { "--hidden", "--no-ignore", "--follow" }
+          additional_args = { "--hidden" }
         },
       },
       extensions = {
