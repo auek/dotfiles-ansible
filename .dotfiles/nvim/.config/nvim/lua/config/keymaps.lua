@@ -25,3 +25,18 @@ vim.cmd("com! WQ wq")
 
 -- Sort
 map("v", "<F9>", ":sort<CR>", default_opts)
+
+-- Telescope grep: two separate keymaps for with/without aider history
+-- Regular grep EXCLUDING aider chat history (normal use)
+map("n", "<leader>fg", function()
+  require('telescope.builtin').live_grep({
+    additional_args = function()
+      return { "--glob=!*.aider.chat.history.*", "--glob=!**/.aider/*" }
+    end
+  })
+end, { desc = "Live grep (exclude aider)" })
+
+-- Grep INCLUDING aider chat history (when you need to search history)
+map("n", "<leader>fG", function()
+  require('telescope.builtin').live_grep()
+end, { desc = "Live grep (include all)" })
