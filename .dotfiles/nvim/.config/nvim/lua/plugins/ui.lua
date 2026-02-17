@@ -64,7 +64,18 @@ return {
     },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", mode = "n", desc = "Find files" },
+      { "<leader>fF", function()
+          require("telescope.builtin").find_files({
+            hidden = true,
+            no_ignore = true,
+          })
+        end, mode = "n", desc = "Find all files" },
       { "<leader>fg", "<cmd>Telescope live_grep<CR>",  mode = "n", desc = "Live grep" },
+      { "<leader>fG", function()
+          require("telescope.builtin").live_grep({
+            additional_args = { "--hidden", "--no-ignore" }
+          })
+        end, mode = "n", desc = "Live grep (search everything)" },
       { "<leader>fo", "<cmd>Telescope oldfiles<CR>",   mode = "n", desc = "Old files" },
       { "<leader>fh", "<cmd>Telescope help_tags<CR>",  mode = "n", desc = "Help tags" },
       { "<leader>ls", "<cmd>Telescope buffers<CR>",    mode = "n", desc = "List buffers" },
