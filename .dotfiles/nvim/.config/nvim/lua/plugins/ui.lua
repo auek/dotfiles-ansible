@@ -70,7 +70,6 @@ return {
             no_ignore = true,
           })
         end, mode = "n", desc = "Find all files" },
-      { "<leader>fg", "<cmd>Telescope live_grep<CR>",  mode = "n", desc = "Live grep" },
       { "<leader>fG", function()
           require("telescope.builtin").live_grep({
             additional_args = { "--hidden", "--no-ignore" }
