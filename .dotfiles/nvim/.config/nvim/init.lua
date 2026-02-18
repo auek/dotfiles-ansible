@@ -1,5 +1,3 @@
-local map = vim.keymap.set
-
 -- Leader
 map("n", " ", "", {})
 vim.g.mapleader = " "
