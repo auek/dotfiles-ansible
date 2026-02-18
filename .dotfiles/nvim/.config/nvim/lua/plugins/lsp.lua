@@ -17,8 +17,13 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
   },
-  init = function()
-    local lsp_zero = require("lsp-zero")
+  -- init = function() -- Remove the init function
+  --   local lsp_zero = require("lsp-zero")
+  -- end,
+  config = function()
+    local lsp_zero = require("lsp-zero") -- Define lsp_zero here
+
+    lsp_zero.setup() -- Call lsp-zero's setup first
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
@@ -61,9 +66,6 @@ return {
         -- end,
       },
     })
-  end,
-  config = function()
-    require("lsp-zero").setup()
   end,
   keys = {
     { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
