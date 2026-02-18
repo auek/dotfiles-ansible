@@ -69,6 +69,10 @@ return {
   -- Main LSP configuration plugin
   {
     "neovim/nvim-lspconfig",
+    config = function()
+      -- This empty config ensures the plugin's setup hook is run by lazy.nvim
+      -- All server-specific setups are handled by mason-lspconfig's handlers.
+    end,
     keys = {
       { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
       { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",   mode = "n",          desc = "Go to declaration" },
