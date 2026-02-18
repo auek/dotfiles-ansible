@@ -62,6 +62,9 @@ return {
       },
     })
   end,
+  config = function()
+    require("lsp-zero").setup()
+  end,
   keys = {
     { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
     { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",   mode = "n",          desc = "Go to declaration" },
