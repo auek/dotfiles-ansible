@@ -20,6 +20,13 @@ if vim.fn.has("wsl") then
   }
 end
 
+-- Auto-reload file when changed externally
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  command = "if mode() !~ 'c' | checktime | endif",
+})
+
 require("config.keymaps")
 require("config.options")
 

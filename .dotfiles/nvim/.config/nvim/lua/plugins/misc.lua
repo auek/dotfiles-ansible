@@ -12,17 +12,4 @@ return {
       vim.g.copilot_no_tab_map = true
     end,
   },
-
-  -- Auto-reload file when changed externally
-  {
-    "autoreload",
-    lazy = false,
-    init = function()
-      vim.opt.autoread = true
-      vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-        pattern = "*",
-        command = "if mode() !~ 'c' | checktime | endif",
-      })
-    end,
-  },
 }
