@@ -74,6 +74,7 @@ return {
   -- Main LSP configuration plugin
   {
     "neovim/nvim-lspconfig",
+    cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart" },
     config = function()
       -- This empty config ensures the plugin's setup hook is run by lazy.nvim
       -- All server-specific setups are handled by mason-lspconfig's handlers.
