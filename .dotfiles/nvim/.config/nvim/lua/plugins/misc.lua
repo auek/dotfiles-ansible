@@ -8,6 +8,8 @@ return {
       require("codegpt").setup({
         openai_api_key = os.getenv("OPENROUTER_API_KEY"),
         openai_api_provider = "openrouter",
+        chat_model = "openrouter/openai/gpt-4o-mini",
+        completion_model = "openrouter/openai/gpt-4o-mini",
       })
     end,
     keys = {
