@@ -1,15 +1,17 @@
 return {
-  -- GitHub Copilot
+  -- CodeGPT with OpenRouter
   {
-    "github/copilot.vim",
-    lazy = false,
-    keys = {
-      { "<C-J>", "copilot#Accept(\"\\<CR>\")", expr = true, replace_keycodes = false,            mode = "i", desc = "Accept Copilot suggestion" },
-      { "<M-]>", "<Plug>(copilot-next)",       mode = "i",  desc = "Next Copilot suggestion" },
-      { "<M-[>", "<Plug>(copilot-previous)",   mode = "i",  desc = "Previous Copilot suggestion" },
-    },
-    init = function()
-      vim.g.copilot_no_tab_map = true
+    "dpay/codegpt.nvim",
+    cmd = { "CodeGPT", "Chat" },
+    build = "go build",
+    config = function()
+      require("codegpt").setup({
+        openai_api_key = os.getenv("OPENROUTER_API_KEY"),
+        openai_api_provider = "openrouter",
+      })
     end,
+    keys = {
+      { "<leader>ai", "<cmd>CodeGPT<cr>", desc = "Open CodeGPT" },
+    },
   },
 }
