@@ -1,80 +1,83 @@
 return {
-  "VonHeikemen/lsp-zero.nvim",
-  branch = "v3.x",
-  dependencies = {
-    -- LSP Support
+  -- Mason for LSP server installation
+  {
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-    -- Autocompletion
-    "hrsh7th/nvim-cmp",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
-    -- Snippets
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-    "rafamadriz/friendly-snippets",
+    cmd = "Mason",
+    config = function()
+      require("mason").setup()
+    end,
   },
-  -- init = function() -- Remove the init function
-  --   local lsp_zero = require("lsp-zero")
-  -- end,
-  config = function()
-    local lsp_zero = require("lsp-zero") -- Define lsp_zero here
 
-    lsp_zero.setup() -- Call lsp-zero's setup first
+  -- Mason LSP Config for bridge between Mason and lspconfig
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      local mason_lspconfig = require("mason-lspconfig")
 
-    require("mason").setup({})
-    require("mason-lspconfig").setup({
-      ensure_installed = {
-        "bashls",
-        "ts_ls",
-        "lua_ls",
-        "eslint",
-        "yamlls",
-        "ansiblels",
-        "astro",
-      },
-      handlers = {
-        lsp_zero.default_setup
-        ,
-        lua_ls = function()
-          require("lspconfig").lua_ls.setup({
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim" },
+      mason_lspconfig.setup({
+        ensure_installed = {
+          "bashls",
+          "ts_ls",
+          "lua_ls",
+          "eslint",
+          "yamlls",
+          "ansiblels",
+          "astro",
+        },
+        handlers = {
+          -- Default handler for LSPs installed by Mason
+          function(server_name)
+            lspconfig[server_name].setup({})
+          end,
+          -- Custom handler for lua_ls
+          lua_ls = function()
+            lspconfig.lua_ls.setup({
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { "vim" },
+                  },
                 },
               },
-            },
-          })
-        end,
-        -- ansiblels = function()
-        --   require("lspconfig").ansiblels.setup({
-        --     settings = {
-        --       ansible = {
-        --         validation = {
-        --           lint = {
-        --             enabled = true,
-        --             path = vim.fn.exepath("ansible-lint"),
-        --           },
-        --         }
-        --       },
-        --     },
-        --   })
-        -- end,
-      },
-    })
-  end,
-  keys = {
-    { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
-    { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",   mode = "n",          desc = "Go to declaration" },
-    { "gh",         function() return vim.lsp.buf.hover() end,  desc = "Hover" },
-    { "<leader>ca", vim.lsp.buf.code_action,                    mode = { "n", "v" }, desc = "Code Action" },
-    { "<leader>cr", vim.lsp.buf.rename,                         desc = "Rename", },
-    { "[d",         "<cmd>lua vim.diagnostic.goto_prev()<CR>",  mode = "n",          desc = "Previous diagnostic" },
-    { "]d",         "<cmd>lua vim.diagnostic.goto_next()<CR>",  mode = "n",          desc = "Next diagnostic" },
-    { "<leader>d",  "<cmd>lua vim.diagnostic.open_float()<CR>", mode = "n",          desc = "Open diagnostics" },
-  }
+            })
+          end,
+          -- Custom handler for ansiblels
+          ansiblels = function()
+            lspconfig.ansiblels.setup({
+              settings = {
+                ansible = {
+                  validation = {
+                    lint = {
+                      enabled = true,
+                      path = vim.fn.exepath("ansible-lint"),
+                    },
+                  }
+                },
+              },
+            })
+          end,
+        },
+      })
+    end,
+  },
+
+  -- Main LSP configuration plugin
+  {
+    "neovim/nvim-lspconfig",
+    keys = {
+      { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",    mode = "n",          desc = "Go to definition" },
+      { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",   mode = "n",          desc = "Go to declaration" },
+      { "gh",         function() return vim.lsp.buf.hover() end,  desc = "Hover" },
+      { "<leader>ca", vim.lsp.buf.code_action,                    mode = { "n", "v" }, desc = "Code Action" },
+      { "<leader>cr", vim.lsp.buf.rename,                         desc = "Rename", },
+      { "[d",         "<cmd>lua vim.diagnostic.goto_prev()<CR>",  mode = "n",          desc = "Previous diagnostic" },
+      { "]d",         "<cmd>lua vim.diagnostic.goto_next()<CR>",  mode = "n",          desc = "Next diagnostic" },
+      { "<leader>d",  "<cmd>lua vim.diagnostic.open_float()<CR>", mode = "n",          desc = "Open diagnostics" },
+    }
+  },
 }
