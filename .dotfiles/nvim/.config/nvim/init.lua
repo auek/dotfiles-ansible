@@ -1,5 +1,5 @@
 -- Leader
-map("n", " ", "", {})
+vim.keymap.set("n", " ", "", {})
 vim.g.mapleader = " "
 
 -- Clipboard
