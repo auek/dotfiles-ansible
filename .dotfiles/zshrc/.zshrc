@@ -19,7 +19,7 @@ if command -v exa &> /dev/null; then
   alias l="exa"
   alias ls="exa"
   alias ll="exa -lah"
-  alias t="exa --icons --classify --sort=type -T -L 2"
+  alias t="exa --all -I .git --icons --classify --sort=type -T -L 2"
 fi
 alias vim="nvim"
 
@@ -67,14 +67,12 @@ zstyle :omz:plugins:ssh-agent identities id_ed25519
 #source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
 
-# Start tmux if not already running
-if [ "$TMUX" = "" ]; then
-  # Start new session without detaching
-  tmux new-session -s dev \; \
-    split-window -v -p 30 \; \
-    split-window -h -p 50 \; \
-    select-pane -t 0
+# Split into tmux panes if not already in a tmux and not ran in VSCode terminal
+if [[ -z "$TMUX" && -z "$VSCODE_GIT_ASKPASS_NODE" ]]; then
+  bash ~/.dotfiles/scripts/tmux-panes.sh
 fi
+
+[ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
 
 FZF_CMD_ARGS="--hidden --exclude .git --exclude node_modules --exclude .cache --exclude .venv --exclude cache"
 
@@ -86,5 +84,4 @@ export FZF_ALT_C_COMMAND="fd --type d $FZF_CMD_ARGS"
 export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && bat --color=always --style=header,grid --line-range :500 {} || echo {} is a directory"'
 
 source <(fzf --zsh)
-
 
