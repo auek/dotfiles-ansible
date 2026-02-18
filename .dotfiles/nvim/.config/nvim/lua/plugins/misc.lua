@@ -1,19 +1,24 @@
 return {
-  -- CodeGPT with OpenRouter
+  -- CodeCompanion with OpenRouter
   {
-    "dpay/codegpt.nvim",
-    cmd = { "CodeGPT", "Chat" },
-    build = "go build",
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
     config = function()
-      require("codegpt").setup({
-        openai_api_key = os.getenv("OPENROUTER_API_KEY"),
-        openai_api_provider = "openrouter",
-        chat_model = "openrouter/openai/gpt-4o-mini",
-        completion_model = "openrouter/openai/gpt-4o-mini",
+      require("codecompanion").setup({
+        adapters = require("codecompanion.adapters").extend("openai", {
+          name = "openrouter",
+          url = "https://openrouter.ai/api/v1",
+          model = "openai/gpt-4o-mini",
+          api_key_name = "OPENROUTER_API_KEY",
+        }),
       })
     end,
     keys = {
-      { "<leader>ai", "<cmd>CodeGPT<cr>", desc = "Open CodeGPT" },
+      { "<leader>ai", "<cmd>CodeCompanionChat<cr>", desc = "Open CodeCompanion Chat" },
+      { "<leader>aa", "<cmd>CodeCompanionAction<cr>", desc = "CodeCompanion Action" },
     },
   },
 }
