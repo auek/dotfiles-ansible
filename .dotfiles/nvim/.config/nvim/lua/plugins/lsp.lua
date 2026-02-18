@@ -31,15 +31,14 @@ return {
           "astro",
         },
         handlers = {
-          -- Default handler for LSPs installed by Mason
+          -- Default handler using new Nvim 0.11+ API
           function(server_name)
-            lspconfig[server_name].setup({
-              capabilities = capabilities,
-            })
+            vim.lsp.config(server_name, { capabilities = capabilities })
+            vim.lsp.enable(server_name)
           end,
           -- Custom handler for lua_ls
           lua_ls = function()
-            lspconfig.lua_ls.setup({
+            vim.lsp.config("lua_ls", {
               capabilities = capabilities,
               settings = {
                 Lua = {
@@ -49,10 +48,11 @@ return {
                 },
               },
             })
+            vim.lsp.enable("lua_ls")
           end,
           -- Custom handler for ansiblels
           ansiblels = function()
-            lspconfig.ansiblels.setup({
+            vim.lsp.config("ansiblels", {
               capabilities = capabilities,
               settings = {
                 ansible = {
@@ -61,10 +61,11 @@ return {
                       enabled = true,
                       path = vim.fn.exepath("ansible-lint"),
                     },
-                  }
+                  },
                 },
               },
             })
+            vim.lsp.enable("ansiblels")
           end,
         },
       })
@@ -74,7 +75,7 @@ return {
   -- Main LSP configuration plugin
   {
     "neovim/nvim-lspconfig",
-    cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart" },
+    cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart", "lsp" },
     config = function()
       -- This empty config ensures the plugin's setup hook is run by lazy.nvim
       -- All server-specific setups are handled by mason-lspconfig's handlers.
