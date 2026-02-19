@@ -26,9 +26,22 @@ end
 
 -- Auto-reload file when changed externally
 vim.opt.autoread = true
+-- Trigger checktime to check for changes on disk
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   pattern = "*",
-  command = "if mode() !~ 'c' | checktime | endif",
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Notification/Redraw when file changes
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  pattern = "*",
+  callback = function()
+    vim.notify("File changed on disk. Reloading...", vim.log.levels.INFO)
+  end,
 })
 
 -- Wordwrap for markdown and txt files
