@@ -9,3 +9,5 @@
 - **Neovim: Command History**: Mapped `C-f` in command mode (`:`) to fuzzy search history via Telescope.
 - **Neovim: API Modernization**: Updated `init.lua` to use `vim.uv` instead of the deprecated `vim.loop`.
 - **Neovim: File Sync**: Implemented `checktime` autocommands to detect and reload external file changes automatically.
+- **TMUX: Zoom**: Used `C-s z` to toggle a full-screen "zoom" on the active pane (noted the `*Z` indicator in status bar).
+- **TMUX: Resizing**: Used `Prefix + Alt + Arrows` for quick pane resizing when "squashing" is preferred over zooming.
