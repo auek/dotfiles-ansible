@@ -26,6 +26,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   pattern = "*",
   command = "if mode() !~ 'c' | checktime | endif",
 })
+--
+-- Wordwrap for markdown and txt files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "txt" },
+  callback = function(args)
+    vim.opt.wrap = true
+    vim.opt.linebreak = true
+  end,
+})
 
 require("config.keymaps")
 require("config.options")
