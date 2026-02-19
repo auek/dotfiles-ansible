@@ -2,6 +2,10 @@
 vim.keymap.set("n", " ", "", {})
 vim.g.mapleader = " "
 
+-- Load configurations early
+require("config.keymaps")
+require("config.options")
+
 -- Clipboard
 if vim.fn.has("wsl") then
   vim.g.clipboard = {
@@ -26,18 +30,17 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   pattern = "*",
   command = "if mode() !~ 'c' | checktime | endif",
 })
---
+
 -- Wordwrap for markdown and txt files
+local wrap_group = vim.api.nvim_create_augroup("WrapSettings", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
+  group = wrap_group,
   pattern = { "markdown", "txt" },
-  callback = function(args)
-    vim.opt.wrap = true
-    vim.opt.linebreak = true
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
   end,
 })
-
-require("config.keymaps")
-require("config.options")
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
