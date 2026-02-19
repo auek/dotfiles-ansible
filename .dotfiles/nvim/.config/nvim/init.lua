@@ -1,4 +1,5 @@
 -- Leader
+-- Aider was here
 vim.keymap.set("n", " ", "", {})
 vim.g.mapleader = " "
 
