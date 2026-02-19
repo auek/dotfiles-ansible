@@ -1,3 +1,12 @@
+-- Wordwrap for markdown and txt files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "txt" },
+  callback = function(args)
+    vim.opt.wrap = true
+    vim.opt.linebreak = true
+  end,
+})
+
 return {
   -- GitHub Copilot
   {
