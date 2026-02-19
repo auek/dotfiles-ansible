@@ -1,5 +1,4 @@
 -- Leader
--- Aider was here
 vim.keymap.set("n", " ", "", {})
 vim.g.mapleader = " "
 
@@ -33,6 +32,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   callback = function()
     if vim.fn.mode() ~= 'c' and not vim.bo.modified then
       vim.cmd("checktime")
+      vim.cmd("redraw")
     end
   end,
 })
