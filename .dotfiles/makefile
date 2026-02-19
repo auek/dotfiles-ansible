@@ -1,5 +1,3 @@
-# Makefile for dotfiles
-
 all:
 	stow --verbose --target=$$HOME --restow zshrc
 	stow --verbose --target=$$HOME --restow zprofile
