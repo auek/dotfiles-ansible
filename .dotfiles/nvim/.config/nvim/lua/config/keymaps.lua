@@ -11,7 +11,6 @@ map("n", "<leader>p", '"*p', default_opts)
 -- Buffers
 map("n", "<c-n>", "<cmd>bnext<CR>", default_opts)
 map("n", "<c-p>", "<cmd>bprev<CR>", default_opts)
--- map("n", "<leader>d", ":bd<CR>", default_opts) # TODO: This clashes with Telescope
 map("n", "<leader>b", ":b#|bd#<CR>", default_opts)
 
 -- Windows
@@ -29,7 +28,7 @@ map("v", "<F9>", ":sort<CR>", default_opts)
 -- Command Line: Fuzzy search command history using Telescope
 map("c", "<C-f>", function()
   require("telescope.builtin").command_history()
-end, { desc = "Search command history" })
+end, vim.tbl_extend("force", default_opts, { desc = "Search command history" }))
 
 -- Telescope grep: two separate keymaps for with/without aider history
 -- Regular grep EXCLUDING aider chat history (normal use) and other hidden files
@@ -48,9 +47,9 @@ map("n", "<leader>fg", function()
       "--glob=!**/.aider/*"
     }
   })
-end, { desc = "Live grep (exclude hidden)" })
+end, vim.tbl_extend("force", default_opts, { desc = "Live grep (exclude hidden)" }))
 
 -- Grep INCLUDING everything, including aider chat history and other hidden files (for debugging purposes)
 map("n", "<leader>fG", function()
   require('telescope.builtin').live_grep()
-end, { desc = "Live grep (include all)" })
+end, vim.tbl_extend("force", default_opts, { desc = "Live grep (include all)" }))
