@@ -1,5 +1,3 @@
--- Leader
--- Aider was here
 vim.keymap.set("n", " ", "", {})
 vim.g.mapleader = " "
 
@@ -25,6 +23,7 @@ if vim.fn.has("wsl") then
   }
 end
 
+-- TODO: Test this make sure this works
 -- Auto-reload file when changed externally
 vim.opt.autoread = true
 -- Trigger checktime to check for changes on disk
@@ -33,7 +32,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   callback = function()
     if vim.fn.mode() ~= 'c' and not vim.bo.modified then
       vim.cmd("checktime")
-      vim.cmd("redraw")
     end
   end,
 })

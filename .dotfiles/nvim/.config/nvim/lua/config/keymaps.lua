@@ -32,7 +32,7 @@ map("c", "<C-f>", function()
 end, { desc = "Search command history" })
 
 -- Telescope grep: two separate keymaps for with/without aider history
--- Regular grep EXCLUDING aider chat history (normal use)
+-- Regular grep EXCLUDING aider chat history (normal use) and other hidden files
 map("n", "<leader>fg", function()
   require('telescope.builtin').live_grep({
     vimgrep_arguments = {
@@ -48,9 +48,9 @@ map("n", "<leader>fg", function()
       "--glob=!**/.aider/*"
     }
   })
-end, { desc = "Live grep (exclude aider)" })
+end, { desc = "Live grep (exclude hidden)" })
 
--- Grep INCLUDING aider chat history (when you need to search history)
+-- Grep INCLUDING everything, including aider chat history and other hidden files (for debugging purposes)
 map("n", "<leader>fG", function()
   require('telescope.builtin').live_grep()
 end, { desc = "Live grep (include all)" })
