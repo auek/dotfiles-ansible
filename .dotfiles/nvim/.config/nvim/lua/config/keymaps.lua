@@ -26,6 +26,11 @@ vim.cmd("com! WQ wq")
 -- Sort
 map("v", "<F9>", ":sort<CR>", default_opts)
 
+-- Command Line: Fuzzy search command history using Telescope
+map("c", "<C-f>", function()
+  require("telescope.builtin").command_history()
+end, { desc = "Search command history" })
+
 -- Telescope grep: two separate keymaps for with/without aider history
 -- Regular grep EXCLUDING aider chat history (normal use)
 map("n", "<leader>fg", function()
