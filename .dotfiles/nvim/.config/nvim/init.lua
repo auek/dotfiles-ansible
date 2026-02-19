@@ -31,7 +31,7 @@ vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   pattern = "*",
   callback = function()
-    if vim.fn.mode() ~= 'c' then
+    if vim.fn.mode() ~= 'c' and not vim.bo.modified then
       vim.cmd("checktime")
     end
   end,
@@ -42,6 +42,7 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
   pattern = "*",
   callback = function()
     vim.notify("File changed on disk. Reloading...", vim.log.levels.INFO)
+    vim.cmd("redraw")
   end,
 })
 
