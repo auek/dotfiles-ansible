@@ -2,6 +2,7 @@
 system_common_packages:
   - curl
   - git
+  - libatomic
   - make
   - pipx
   - python3 # Should already be installed but keeping it here for reference
