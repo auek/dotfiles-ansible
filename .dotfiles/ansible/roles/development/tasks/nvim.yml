@@ -2,6 +2,7 @@
 - name: Install bob-nvim binary
   ansible.builtin.shell:
     cmd: |
+      mkdir -p ~/.local/bin
       curl -L https://github.com/MordechaiHadad/bob/releases/latest/download/bob-linux-x86_64.zip -o /tmp/bob.zip
       unzip -o /tmp/bob.zip -d ~/.local/bin
       chmod +x ~/.local/bin/bob
