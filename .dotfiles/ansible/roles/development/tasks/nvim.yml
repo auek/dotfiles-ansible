@@ -1,37 +1,18 @@
 ---
-- name: Clone nvim repository
-  ansible.builtin.git:
-    repo: https://github.com/neovim/neovim
-    dest: "{{ ansible_env.HOME }}/src/nvim"
-    clone: true
-    force: true
-    version: stable
+- name: Install bob-nvim using pipx
+  ansible.builtin.shell:
+    cmd: |
+      source ~/.zprofile && pipx install bob-nvim
+    executable: /bin/zsh
+  register: bob_install
+  changed_when: "'installed package bob-nvim' in bob_install.stdout"
+  become: false
 
-- name: Install nvim build dependencies
-  become: true
-  ansible.builtin.apt:
-    name:
-      - ninja-build
-      - gettext
-      - libtool
-      - libtool-bin
-      - autoconf
-      - automake
-      - cmake
-      - g++
-      - pkg-config
-      - unzip
-      - curl
-    state: present
-
-- name: Build nvim release version
-  community.general.make:
-    chdir: "{{ ansible_env.HOME }}/src/nvim"
-    params:
-      CMAKE_BUILD_TYPE: Release
-
-- name: Install nvim release version
-  become: true
-  community.general.make:
-    chdir: "{{ ansible_env.HOME }}/src/nvim"
-    target: install
+- name: Install and use stable Neovim via bob
+  ansible.builtin.shell:
+    cmd: |
+      source ~/.zprofile && bob use stable
+    executable: /bin/zsh
+  register: bob_use
+  changed_when: "'Installed' in bob_use.stdout or 'Now using' in bob_use.stdout"
+  become: false

@@ -1,4 +1,11 @@
 ---
+- name: Include nvim tasks
+  ansible.builtin.include_tasks:
+    file: nvim.yml
+    apply:
+      tags:
+        - full
+
 - name: Include nvm tasks
   ansible.builtin.include_tasks:
     file: nvm.yml
