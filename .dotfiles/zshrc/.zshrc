@@ -21,8 +21,11 @@ if command -v exa &> /dev/null; then
   alias ll="exa -lah"
   alias t="exa --all -I .git --icons --classify --sort=type -T -L 2"
 fi
-alias vim="nvim"
 
+# if nvim is installed, use it instead of vim
+if command -v nvim &> /dev/null; then
+  alias vim="nvim"
+fi
 
 # Git
 alias gst="git status"
@@ -33,9 +36,11 @@ alias gpsup="git push -u origin HEAD"
 alias gl="git pull"
 alias gcane="git commit --amend --no-edit"
 alias gcam="git commit -am"
+alias gcmsg="git commit -m"
 alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gcm="git checkout main || git checkout master"
+alias gc-="git checkout -"
 
 ### Settings ###
 
