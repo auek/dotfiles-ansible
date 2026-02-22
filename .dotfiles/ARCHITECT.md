@@ -9,9 +9,8 @@ I have a scratchpad at ~/docs/triage/scratch.md for capturing thoughts during se
 This file is outside any git repository and is always available for editing.
 
 **When I say "note it down", "jot this down", or similar:**
-- Append the note to ~/docs/triage/scratch.md
-- Prefix it with a timestamp in the format: `## YYYY-MM-DD HH:MM`
-- Do not create new files
+RUN the command **/home/auek/bin/note "the thing to note"** to append the text to the scratchpad. This is for capturing important information, ideas, or decisions that come up during our interactions.
+Never try to write to ~/docs/notes/SCRATCH.md directly.
 
 ## Constructive feedback
 Provide brief, polite critiques if a technical approach or workflow seems inefficient or contradictory to your
