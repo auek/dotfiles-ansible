@@ -27,6 +27,11 @@ if command -v nvim &> /dev/null; then
   alias vim="nvim"
 fi
 
+# if on WSL, use explorer.exe to open files and directories, "same" as "open" on macOS
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  open() { explorer.exe "${1:-.}"; }
+fi
+
 # Git
 alias gst="git status"
 alias gb="git branch"
@@ -71,11 +76,6 @@ zstyle :omz:plugins:ssh-agent identities id_ed25519
 
 #source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
-
-# Split into tmux panes if not already in a tmux and not ran in VSCode terminal
-if [[ -z "$TMUX" && -z "$VSCODE_GIT_ASKPASS_NODE" ]]; then
-  bash ~/.dotfiles/scripts/tmux-panes.sh
-fi
 
 [ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
 
