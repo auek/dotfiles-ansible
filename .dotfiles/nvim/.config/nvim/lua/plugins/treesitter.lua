@@ -6,8 +6,10 @@ return {
       "windwp/nvim-ts-autotag",
       "yioneko/nvim-yati",
     },
-    opts = {
-      ensure_installed = {
+    config = function()
+      local configs = require("nvim-treesitter")
+
+      configs.install({
         "bash",
         "css",
         "dockerfile",
@@ -22,25 +24,17 @@ return {
         "tsx",
         "typescript",
         "yaml",
-      },
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = false,
-      },
-      autotag = {
-        enable = true,
-      },
-      autopairs = {
-        enable = false,
-      },
-      yati = {
-        enable = true,
-        default_lazy = true,
-        default_fallback = "auto",
-      },
-    },
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+          if lang then
+            vim.treesitter.start()
+          end
+        end,
+      })
+    end,
   },
 
   {
