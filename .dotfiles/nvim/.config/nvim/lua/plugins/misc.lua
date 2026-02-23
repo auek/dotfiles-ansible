@@ -12,4 +12,12 @@ return {
       vim.g.copilot_no_tab_map = true
     end,
   },
+  -- Comment.nvim
+  {
+    "numToStr/Comment.nvim",
+    event = { "CursorHold", "CursorHoldI" },
+    config = function()
+      require("Comment").setup()
+    end,
+  },
 }
