@@ -14,10 +14,15 @@ return {
   },
   -- Comment.nvim
   {
-    "numToStr/Comment.nvim",
-    event = { "CursorHold", "CursorHoldI" },
-    config = function()
-      require("Comment").setup()
-    end,
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    opts = {
+      enable_autocmd = false,
+    }
+  },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+    }
   },
 }
