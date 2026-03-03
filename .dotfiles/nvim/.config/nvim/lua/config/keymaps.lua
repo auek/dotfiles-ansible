@@ -17,6 +17,16 @@ map("n", "<leader>b", ":b#|bd#<CR>", default_opts)
 map("n", "<leader>q", ":q<CR>", default_opts)
 map("n", "<leader>w", ":w<CR>", default_opts)
 
+-- NvimTree: toggle if in tree, otherwise focus
+map("n", "<C-n>", function()
+  local nvim_tree = require("nvim-tree.api")
+  if vim.bo.filetype == "NvimTree" then
+    nvim_tree.tree.toggle()
+  else
+    nvim_tree.tree.focus()
+  end
+end, { silent = true, noremap = true, desc = "Toggle or focus file tree" })
+
 -- Save
 vim.cmd("com! W w")
 vim.cmd("com! Wq wq")
