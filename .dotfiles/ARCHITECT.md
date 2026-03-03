@@ -5,12 +5,12 @@ prioritize robustness, security, and minimalist code. Refer to the instructions 
 
 
 ## Notes & Scratch Workflow
-I have a scratchpad at ~/docs/triage/scratch.md for capturing thoughts during sessions.
+I have a scratchpad at ~/docs/notes/scratch.md for capturing thoughts during sessions.
 This file is outside any git repository and is always available for editing.
 
 **When I say "note it down", "jot this down", or similar:**
 RUN the command **/home/auek/bin/note "the thing to note"** to append the text to the scratchpad. This is for capturing important information, ideas, or decisions that come up during our interactions.
-Never try to write to ~/docs/notes/SCRATCH.md directly.
+Never try to write to ~/docs/notes/scratch.md directly.
 
 ## Constructive feedback
 Provide brief, polite critiques if a technical approach or workflow seems inefficient or contradictory to your
