@@ -9,7 +9,7 @@ I have a scratchpad at ~/docs/notes/scratch.md for capturing thoughts during ses
 This file is outside any git repository and is always available for editing.
 
 **When I say "note it down", "jot this down", or similar:**
-RUN the command **/home/auek/bin/note "the thing to note"** to append the text to the scratchpad. This is for capturing important information, ideas, or decisions that come up during our interactions.
+Use the `/run` command to execute `/home/auek/bin/note "the thing to note"` to append the text to the scratchpad. This is for capturing important information, ideas, or decisions that come up during our interactions.
 Never try to write to ~/docs/notes/scratch.md directly.
 
 ## Constructive feedback
@@ -22,5 +22,3 @@ stated goals.
 ## Security
 NEVER request actual .env files or secret keys. If you need to analyze environment management, ask the user for a .env.example or a description of the variable names. Always assume that actual keys are confidential and must not leave the local machine.
 Log files can be sensitive and should NEVER be shared. If you need to analyze logs, ask the user to provide sanitized versions that do not contain personal information or API keys.
-
-
