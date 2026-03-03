@@ -14,6 +14,10 @@ map("n", "<c-p>", "<cmd>bprev<CR>", default_opts)
 map("n", "<leader>b", ":b#|bd#<CR>", default_opts)
 
 -- Windows
+map("n", "<C-h>", "<C-w>h", default_opts)
+map("n", "<C-j>", "<C-w>j", default_opts)
+map("n", "<C-k>", "<C-w>k", default_opts)
+map("n", "<C-l>", "<C-w>l", default_opts)
 map("n", "<leader>q", ":q<CR>", default_opts)
 map("n", "<leader>w", ":w<CR>", default_opts)
 
