@@ -26,9 +26,6 @@ return {
   -- Auto pairs and tags
   { "windwp/nvim-autopairs", config = true },
 
-  -- Comments
-  { "numToStr/Comment.nvim", config = true },
-
   -- Surround
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
