@@ -79,14 +79,21 @@ source $ZSH/oh-my-zsh.sh
 
 [ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
 
-FZF_CMD_ARGS="--hidden --exclude .git --exclude node_modules --exclude .cache --exclude .venv --exclude cache"
+# FZF configuration (only if fd is available)
+if command -v fd &> /dev/null; then
+  FZF_CMD_ARGS="--hidden --exclude .git --exclude node_modules --exclude .cache --exclude .venv --exclude cache"
+  
+  export FZF_DEFAULT_COMMAND="fd --type f ${FZF_CMD_ARGS}"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fd --type d ${FZF_CMD_ARGS}"
 
-# FZF
-export FZF_DEFAULT_COMMAND="fd --type f $FZF_CMD_ARGS"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d $FZF_CMD_ARGS"
+  # Check for bat to provide rich previews, otherwise fallback
+  if command -v bat &> /dev/null; then
+    export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && bat --color=always --style=header,grid --line-range :500 {} || echo {} is a directory"'
+  else
+    export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && head -n 500 {} || echo {} is a directory"'
+  fi
 
-export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && bat --color=always --style=header,grid --line-range :500 {} || echo {} is a directory"'
-
-source <(fzf --zsh)
+  source <(fzf --zsh)
+fi
 
