@@ -89,7 +89,7 @@ if command -v fd &> /dev/null; then
 
   # Search directories from home directory (Alt + Shift + C)
   fzf-cd-home() {
-    local dir=$(fd --type d $FZF_CMD_ARGS . ~ | fzf)
+    local dir=$(fd --type d . "$HOME" 2>/dev/null | fzf)
     if [ -n "$dir" ]; then
       cd "$dir"
       zle reset-prompt
