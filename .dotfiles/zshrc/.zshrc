@@ -83,13 +83,13 @@ source $ZSH/oh-my-zsh.sh
 if command -v fd &> /dev/null; then
   FZF_CMD_ARGS="--hidden --exclude .git --exclude node_modules --exclude .cache --exclude .venv --exclude cache"
   
-  export FZF_DEFAULT_COMMAND="fd --type f ${FZF_CMD_ARGS}"
+  export FZF_DEFAULT_COMMAND="fd --type f $FZF_CMD_ARGS"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="fd --type d ${FZF_CMD_ARGS}"
+  export FZF_ALT_C_COMMAND="fd --type d $FZF_CMD_ARGS"
 
   # Search directories from home directory (Alt + Shift + C)
   fzf-cd-home() {
-    local dir=$(fd --type d ${FZF_CMD_ARGS} . ~ | fzf)
+    local dir=$(fd --type d $FZF_CMD_ARGS . ~ | fzf)
     if [ -n "$dir" ]; then
       cd "$dir"
       zle reset-prompt
