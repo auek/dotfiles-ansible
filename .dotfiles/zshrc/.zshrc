@@ -87,6 +87,17 @@ if command -v fd &> /dev/null; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="fd --type d ${FZF_CMD_ARGS}"
 
+  # Search directories from home directory (Alt + Shift + C)
+  fzf-cd-home() {
+    local dir=$(fd --type d ${FZF_CMD_ARGS} . ~ | fzf)
+    if [ -n "$dir" ]; then
+      cd "$dir"
+      zle reset-prompt
+    fi
+  }
+  zle -N fzf-cd-home
+  bindkey "\eC" fzf-cd-home
+
   # Check for bat to provide rich previews, otherwise fallback
   if command -v bat &> /dev/null; then
     export FZF_DEFAULT_OPTS='--tmux center --preview "[[ -f {} ]] && bat --color=always --style=header,grid --line-range :500 {} || echo {} is a directory"'
