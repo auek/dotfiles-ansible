@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRATCH_LOCATION=~/docs/notes/scratch.md
+
 # 1. Attempt to find the git root directory name
 # If not in a git repo, fallback to the current directory name
 PROJECT_PATH=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -11,6 +13,6 @@ fi
 
 # 2. Append to the scratchpad
 # We keep your existing date format but append the project context in brackets
-echo "## $(date '+%Y-%m-%d %H:%M') [$PROJECT_NAME]" >> ~/docs/notes/scratch.md
-echo "$1" >> ~/docs/notes/scratch.md
-echo "" >> ~/docs/notes/scratch.md
+echo "## $(date '+%Y-%m-%d %H:%M') [$PROJECT_NAME]" >> "$SCRATCH_LOCATION"
+echo "$1" >> "$SCRATCH_LOCATION"
+echo "" >> "$SCRATCH_LOCATION"
