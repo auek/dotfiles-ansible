@@ -1,5 +1,7 @@
 
 .aider*
+!.aider.conf.yml
+!.aider.model.settings.yml
 node_modules/
 dist/
 build/

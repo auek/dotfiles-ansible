@@ -1,0 +1,48 @@
+auto-accept-architect: false
+chat-language: english
+read:
+  [
+    /home/auek/.dotfiles/ARCHITECT.md,
+    /home/auek/docs/notes/projects.md,
+    /home/auek/docs/notes/notes.md,
+    /home/auek/docs/notes/scratch.md,
+  ]
+stream: true
+cache-prompts: true
+alias:
+  - lite:gemini/gemini-2.5-flash-lite
+  - lite3:gemini/gemini-3.1-flash-lite-preview
+  - flash:gemini/gemini-3-flash-preview
+  - pro:gemini/gemini-3.1-pro-preview
+  - mm:openai/MiniMaxAI/MiniMax-M2.5
+  - sonnet:openrouter/anthropic/claude-sonnet-4.6
+  - deepreason:deepseek/deepseek-reasoner
+#
+#
+# MODELS
+# ------------------------------------------
+# CHINESE
+model: openai/MiniMaxAI/MiniMax-M2.5
+# # model: deepseek/deepseek-reasoner
+# # model: deepseek/deepseek-chat
+# #
+# # GEMINI
+# model: gemini/gemini-3-flash-preview
+#nthropic/claude-sonnet-4.6
+#model: gemini/gemini-2.5-flash
+#
+# # ANTRHOPIC
+# model: openrouter/anthropic/claude-sonnet-4.6
+#
+# EDITOR
+# ------------------------------------------
+# CHINESE
+# editor-model: deepseek/deepseek-chat
+# editor-model: openai/deepseek-ai/DeepSeek-V3.2
+# weak-model: openai/deepseek-ai/DeepSeek-V3.2
+editor-model: openai/MiniMaxAI/MiniMax-M2.5
+weak-model: openai/MiniMaxAI/MiniMax-M2.5
+#
+# GEMINI
+# editor-model: gemini/gemini-2.5-flash
+# editor-model: gemini/gemini-3-flash-preview
