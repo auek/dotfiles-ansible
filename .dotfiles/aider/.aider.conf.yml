@@ -2,10 +2,10 @@ auto-accept-architect: false
 chat-language: english
 read:
   [
-    /home/auek/.dotfiles/ARCHITECT.md,
-    /home/auek/docs/projects.md,
-    /home/auek/docs/notes.md,
-    /home/auek/docs/scratch.md,
+    /home/august/.dotfiles/ARCHITECT.md,
+    /home/august/docs/projects.md,
+    /home/august/docs/notes.md,
+    /home/august/docs/scratch.md,
   ]
 stream: true
 cache-prompts: true

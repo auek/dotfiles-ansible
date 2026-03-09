@@ -72,6 +72,7 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
   open() { explorer.exe "${1:-.}"; }
 fi
 
+# dev: nvim + aider
 if command -v tmux &> /dev/null; then
   function dev() {
     local detach=false
@@ -100,7 +101,7 @@ if command -v tmux &> /dev/null; then
       tmux new-session -d -s "$name" -c "$dir"
 
       if command -v nvim &> /dev/null; then
-        tmux send-keys -t "$name" "nvim ." Enter
+        tmux send-keys -t "$name" "nvim" Enter
       fi
 
       if command -v aider &> /dev/null; then
