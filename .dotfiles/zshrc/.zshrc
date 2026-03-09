@@ -72,19 +72,25 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
   open() { explorer.exe "${1:-.}"; }
 fi
 
-function dev() {
-  local name=${1:?session name required}
-  local dir=${2:?project path required}
-  if tmux has-session -t "$name" 2>/dev/null; then
-    tmux attach -t "$name"
-  else
-    tmux new-session -d -s "$name" -c "$dir" \; \
-      send-keys "nvim ." Enter \; \
-      split-window -h -c "$dir" \; \
-      send-keys "aider" Enter
-    tmux attach -t "$name"
-  fi
-}
+if command -v tmux &> /dev/null; then
+  function dev() {
+    local name=${1:?session name required}
+    local dir=${2:?project path required}
+    if tmux has-session -t "$name" 2>/dev/null; then
+      tmux attach -t "$name"
+    else
+      tmux new-session -d -s "$name" -c "$dir" \; \
+        send-keys "nvim ." Enter \; \
+        split-window -h -c "$dir" \; \
+        send-keys "aider" Enter
+      tmux attach -t "$name"
+    fi
+  }
+else
+  function dev() {
+    echo "Error: tmux is not installed."
+  }
+fi
 
 ### FZF and External Tool Integrations ###
 # FZF configuration (only if fd is available)
