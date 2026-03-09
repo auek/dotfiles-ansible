@@ -74,10 +74,21 @@ fi
 
 if command -v tmux &> /dev/null; then
   function dev() {
+    local detach=false
+    
+    # Parse -d flag
+    while [[ "$1" == "-d" ]]; do
+      detach=true
+      shift
+    done
+    
     local name=${1:?session name required}
     local dir=${2:?project path required}
+    
     if tmux has-session -t "$name" 2>/dev/null; then
-      tmux attach -t "$name"
+      if [ "$detach" = false ]; then
+        tmux attach -t "$name"
+      fi
     else
       tmux new-session -d -s "$name" -c "$dir"
 
@@ -90,7 +101,9 @@ if command -v tmux &> /dev/null; then
         tmux send-keys -t "$name" "aider" Enter
       fi
 
-      tmux attach -t "$name"
+      if [ "$detach" = false ]; then
+        tmux attach -t "$name"
+      fi
     fi
   }
 else
