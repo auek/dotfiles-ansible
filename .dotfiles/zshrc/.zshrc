@@ -64,7 +64,7 @@ unsetopt BEEP
 autoload -Uz compinit && compinit
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
 
-ZSH_THEME="gruvbox"
+ZSH_THEME="robbyrussell"
 
 plugins=(git ssh-agent zsh-autosuggestions)
 

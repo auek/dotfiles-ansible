@@ -3,9 +3,9 @@ chat-language: english
 read:
   [
     /home/auek/.dotfiles/ARCHITECT.md,
-    /home/auek/docs/notes/projects.md,
-    /home/auek/docs/notes/notes.md,
-    /home/auek/docs/notes/scratch.md,
+    /home/auek/docs/projects.md,
+    /home/auek/docs/notes.md,
+    /home/auek/docs/scratch.md,
   ]
 stream: true
 cache-prompts: true
