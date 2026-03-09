@@ -76,9 +76,16 @@ if command -v tmux &> /dev/null; then
   function dev() {
     local detach=false
     
-    # Parse -d flag
-    while [[ "$1" == "-d" ]]; do
-      detach=true
+    # Parse flags
+    while [[ "$1" == "-d" || "$1" == "-h" ]]; do
+      if [[ "$1" == "-d" ]]; then
+        detach=true
+      elif [[ "$1" == "-h" ]]; then
+        echo "Usage: dev [-d] <session_name> <project_path>"
+        echo "  -d    Start session detached (do not attach)"
+        echo "  -h    Show this help message"
+        return 0
+      fi
       shift
     done
     
