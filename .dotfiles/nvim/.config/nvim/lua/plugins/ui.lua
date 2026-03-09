@@ -64,17 +64,27 @@ return {
     },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", mode = "n", desc = "Find files" },
-      { "<leader>fF", function()
+      {
+        "<leader>fF",
+        function()
           require("telescope.builtin").find_files({
             hidden = true,
             no_ignore = true,
           })
-        end, mode = "n", desc = "Find all files" },
-      { "<leader>fG", function()
+        end,
+        mode = "n",
+        desc = "Find all files"
+      },
+      {
+        "<leader>fG",
+        function()
           require("telescope.builtin").live_grep({
             additional_args = { "--hidden", "--no-ignore" }
           })
-        end, mode = "n", desc = "Live grep (search everything)" },
+        end,
+        mode = "n",
+        desc = "Live grep (search everything)"
+      },
       { "<leader>fo", "<cmd>Telescope oldfiles<CR>",   mode = "n", desc = "Old files" },
       { "<leader>fh", "<cmd>Telescope help_tags<CR>",  mode = "n", desc = "Help tags" },
       { "<leader>ls", "<cmd>Telescope buffers<CR>",    mode = "n", desc = "List buffers" },
@@ -185,10 +195,11 @@ return {
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && npm install && git restore .",
+    build = "cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mpdp_browser = 'cmd.exe /c start'
     end,
     ft = { "markdown" },
-  }
+  },
 }
