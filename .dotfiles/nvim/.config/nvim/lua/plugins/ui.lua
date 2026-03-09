@@ -198,7 +198,7 @@ return {
     build = "cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mpdp_browser = 'cmd.exe /c start'
+      vim.g.mkdp_browser = 'cmd.exe /c start'
     end,
     ft = { "markdown" },
   },
