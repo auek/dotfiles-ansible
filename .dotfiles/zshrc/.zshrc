@@ -79,10 +79,17 @@ if command -v tmux &> /dev/null; then
     if tmux has-session -t "$name" 2>/dev/null; then
       tmux attach -t "$name"
     else
-      tmux new-session -d -s "$name" -c "$dir" \; \
-        send-keys "nvim ." Enter \; \
-        split-window -h -c "$dir" \; \
-        send-keys "aider" Enter
+      tmux new-session -d -s "$name" -c "$dir"
+
+      if command -v nvim &> /dev/null; then
+        tmux send-keys -t "$name" "nvim ." Enter
+      fi
+
+      if command -v aider &> /dev/null; then
+        tmux split-window -h -t "$name" -c "$dir"
+        tmux send-keys -t "$name" "aider" Enter
+      fi
+
       tmux attach -t "$name"
     fi
   }
