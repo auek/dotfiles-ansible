@@ -3,6 +3,15 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
+    require("gruvbox").setup({
+      italic = {
+        strings = false,
+        comments = false,
+        operators = false,
+        folds = false,
+      },
+    })
+
     vim.opt.background = "dark"
     local success, errmsg = pcall(function()
       vim.cmd([[colorscheme gruvbox]])
