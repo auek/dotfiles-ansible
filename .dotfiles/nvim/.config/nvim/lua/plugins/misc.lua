@@ -18,7 +18,7 @@ return {
     opts = {
       backend = "openai",
       model = "gemini-2.5-flash-lite",
-      url = "https://generativelanguage.googleapis.com/v1beta/openai/v1/chat/completions",
+      url = "https://generativelanguage.googleapis.com/v1beta/openai/v1/completions",
       disable_url_path_completion = true,
       api_token = os.getenv("GEMINI_API_KEY"),
       url_to_header = function(url, api_token)
@@ -40,7 +40,10 @@ return {
       accept_keymap = "<Tab>",
       dismiss_keymap = "<S-Tab>",
       lsp = {
-        cmd_env = { LLM_LOG_LEVEL = "DEBUG" },
+        cmd_env = {
+          LLM_LOG_LEVEL = "DEBUG",
+          LLM_LOG_FILE = vim.fn.expand("~/.cache/nvim/llm-ls.log"),
+        },
       },
     },
   },
