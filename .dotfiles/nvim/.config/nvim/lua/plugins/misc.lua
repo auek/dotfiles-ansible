@@ -16,25 +16,20 @@ return {
   {
     "huggingface/llm.nvim",
     opts = {
-      backend = "ollama",
-      model = "qwen3.5:2b",
-      url = "http://localhost:11434",
-      tokens_to_clear = { "```python", "```", "<|fim_prefix|>", "<|fim_suffix|>", "<|fim_middle|>" },
+      backend = "openai",
+      model = "gemini-2.5-flash-lite",
+      url = "https://generativelanguage.googleapis.com/v1beta/openai/",
+      api_token = os.getenv("GEMINI_API_KEY"),
+      tokens_to_clear = { "```", "<|fim_prefix|>", "<|fim_suffix|>", "<|fim_middle|>" },
       fim = {
-        enabled = true,
-        prefix = "<|fim_prefix|>",
-        middle = "<|fim_middle|>",
-        suffix = "<|fim_suffix|>",
+        enabled = false, -- Gemini doesn't support FIM tokens, use standard completion
       },
-      context_window = 8192,
-      tokenizer = nil,
+      context_window = 512,
       request_body = {
-        options = {
-          temperature = 0.1,
-          num_predict = 30,
-        },
-        think = false, -- suppress Qwen3.5 thinking mode
+        temperature = 0.1,
+        max_tokens = 30,
       },
+      debounce_ms = 150,
       accept_keymap = "<Tab>",
       dismiss_keymap = "<S-Tab>",
     },
