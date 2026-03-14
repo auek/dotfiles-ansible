@@ -20,14 +20,20 @@ return {
       model = "gemini-2.5-flash-lite",
       url = "https://generativelanguage.googleapis.com/v1beta/openai/",
       api_token = os.getenv("GEMINI_API_KEY"),
+      url_to_header = function(url, api_token)
+        return { Authorization = "Bearer " .. api_token }
+      end,
       tokens_to_clear = { "```", "<|fim_prefix|>", "<|fim_suffix|>", "<|fim_middle|>" },
       fim = {
-        enabled = false, -- Gemini doesn't support FIM tokens, use standard completion
+        enabled = true,
+        prefix = "<|fim_prefix|>",
+        middle = "<|fim_middle|>",
+        suffix = "<|fim_suffix|>",
       },
-      context_window = 512,
+      context_window = 1024,
       request_body = {
         temperature = 0.1,
-        max_tokens = 30,
+        max_tokens = 64,
       },
       debounce_ms = 150,
       accept_keymap = "<Tab>",
