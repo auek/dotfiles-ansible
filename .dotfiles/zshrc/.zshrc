@@ -22,7 +22,6 @@ zstyle ':omz:*' aliases no
 zstyle :omz:plugins:ssh-agent identities id_ed25519
 
 source $ZSH/oh-my-zsh.sh
-[ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
 
 ### Binds ###
 bindkey "[D" backward-word
@@ -66,6 +65,9 @@ alias gcb="git checkout -b"
 alias gcm="git checkout main || git checkout master"
 alias gc-="git checkout -"
 
+# Secrets-wrapped commands
+alias aider='with_secrets aider'
+alias llm='with_secrets llm'
 
 # SSH
 if [ -z "$SSH_AUTH_SOCK" ]; then
@@ -74,6 +76,19 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 ### Functions ###
+# Helper function to run commands with secrets loaded only in a subshell
+with_secrets() {
+    if [ -f ~/.secrets ]; then
+        (
+            source ~/.secrets
+            "$@"
+        )
+    else
+        echo "Error: ~/.secrets file not found."
+        return 1
+    fi
+}
+
 # WSL open function
 if grep -qi microsoft /proc/version 2>/dev/null; then
   open() { explorer.exe "${1:-.}"; }
@@ -113,7 +128,7 @@ if command -v tmux &> /dev/null; then
 
       if command -v aider &> /dev/null; then
         tmux split-window -h -t "$name" -c "$dir"
-        tmux send-keys -t "$name" "aider" Enter
+        tmux send-keys -t "$name" "with_secrets aider" Enter
       fi
 
       if [ "$detach" = false ]; then
