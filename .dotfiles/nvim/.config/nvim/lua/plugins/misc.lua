@@ -18,7 +18,8 @@ return {
     opts = {
       backend = "openai",
       model = "gemini-2.5-flash-lite",
-      url = "https://generativelanguage.googleapis.com/v1beta/openai/",
+      url = "https://generativelanguage.googleapis.com/v1beta/openai/v1/chat/completions",
+      disable_url_path_completion = true,
       api_token = os.getenv("GEMINI_API_KEY"),
       url_to_header = function(url, api_token)
         return { Authorization = "Bearer " .. api_token }
