@@ -12,40 +12,26 @@ return {
   --     vim.g.copilot_no_tab_map = true
   --   end,
   -- },
-  -- LLM
   {
-    "huggingface/llm.nvim",
-    opts = {
-      backend = "openai",
-      model = "gemini-2.5-flash-lite",
-      url = "https://generativelanguage.googleapis.com/v1beta/openai/v1/completions",
-      disable_url_path_completion = true,
-      api_token = os.getenv("GEMINI_API_KEY"),
-      url_to_header = function(url, api_token)
-        return { Authorization = "Bearer " .. api_token }
-      end,
-      tokens_to_clear = { "```", "<|fim_prefix|>", "<|fim_suffix|>", "<|fim_middle|>" },
-      fim = {
-        enabled = true,
-        prefix = "<|fim_prefix|>",
-        middle = "<|fim_middle|>",
-        suffix = "<|fim_suffix|>",
-      },
-      context_window = 1024,
-      request_body = {
-        temperature = 0.1,
-        max_tokens = 64,
-      },
-      debounce_ms = 150,
-      accept_keymap = "<Tab>",
-      dismiss_keymap = "<S-Tab>",
-      lsp = {
-        cmd_env = {
-          LLM_LOG_LEVEL = "DEBUG",
-          LLM_LOG_FILE = vim.fn.expand("~/.cache/nvim/llm-ls.log"),
-        },
-      },
-    },
+    "Exafunction/windsurf.vim",
+    config = function()
+      -- disable by filetype
+      vim.g.codeium_filetypes = {
+        env = false,
+      }
+      -- disable by filename pattern (for secrets files)
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = { ".env", ".env.*", ".secrets", "*secret*", "*credential*", "*.pem", "*.key" },
+        callback = function() vim.cmd("CodeiumDisable") end,
+      })
+      vim.api.nvim_create_autocmd("BufLeave", {
+        pattern = { ".env", ".env.*", ".secrets", "*secret*", "*credential*", "*.pem", "*.key" },
+        callback = function() vim.cmd("CodeiumEnable") end,
+      })
+      vim.keymap.set("i", "<Tab>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true, silent = true })
+    end,
   },
   -- Comment.nvim
   {
