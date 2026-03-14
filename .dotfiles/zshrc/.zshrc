@@ -31,50 +31,6 @@ bindkey "^[e" end-of-line
 bindkey "\e\e[D" backward-word
 bindkey "\e\e[C" forward-word
 
-### Aliases ###
-# General
-alias p="pwd"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../../.."
-
-# Tool-specific
-if command -v exa &> /dev/null; then
-  alias l="exa"
-  alias ls="exa"
-  alias ll="exa -lah"
-  alias t="exa --all -I .git --icons --classify --sort=type -T -L 2"
-fi
-
-if command -v nvim &> /dev/null; then
-  alias vim="nvim"
-fi
-
-# Git
-alias gst="git status"
-alias gb="git branch"
-alias glg="git log"
-alias gp="git push"
-alias gpsup="git push -u origin HEAD"
-alias gl="git pull"
-alias gcane="git commit --amend --no-edit"
-alias gcam="git commit -am"
-alias gcmsg="git commit -m"
-alias gco="git checkout"
-alias gcb="git checkout -b"
-alias gcm="git checkout main || git checkout master"
-alias gc-="git checkout -"
-
-# Secrets-wrapped commands
-alias aider='with_secrets aider'
-alias llm='with_secrets llm'
-
-# SSH
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  eval "$(ssh-agent -s)" > /dev/null
-  ssh-add 2>/dev/null
-fi
-
 ### Functions ###
 # Helper function to run commands with secrets loaded only in a subshell
 with_secrets() {
@@ -140,6 +96,50 @@ else
   function dev() {
     echo "Error: tmux is not installed."
   }
+fi
+
+### Aliases ###
+# General
+alias p="pwd"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../../.."
+
+# Tool-specific
+if command -v exa &> /dev/null; then
+  alias l="exa"
+  alias ls="exa"
+  alias ll="exa -lah"
+  alias t="exa --all -I .git --icons --classify --sort=type -T -L 2"
+fi
+
+if command -v nvim &> /dev/null; then
+  alias vim="nvim"
+fi
+
+# Git
+alias gst="git status"
+alias gb="git branch"
+alias glg="git log"
+alias gp="git push"
+alias gpsup="git push -u origin HEAD"
+alias gl="git pull"
+alias gcane="git commit --amend --no-edit"
+alias gcam="git commit -am"
+alias gcmsg="git commit -m"
+alias gco="git checkout"
+alias gcb="git checkout -b"
+alias gcm="git checkout main || git checkout master"
+alias gc-="git checkout -"
+
+# Secrets-wrapped commands
+alias aider='with_secrets aider'
+alias llm='with_secrets llm'
+
+# SSH
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" > /dev/null
+  ssh-add 2>/dev/null
 fi
 
 ### FZF and External Tool Integrations ###
