@@ -66,6 +66,13 @@ alias gcb="git checkout -b"
 alias gcm="git checkout main || git checkout master"
 alias gc-="git checkout -"
 
+
+# SSH
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" > /dev/null
+  ssh-add 2>/dev/null
+fi
+
 ### Functions ###
 # WSL open function
 if grep -qi microsoft /proc/version 2>/dev/null; then
