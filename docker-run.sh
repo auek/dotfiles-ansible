@@ -30,33 +30,33 @@ usage() {
 
 while [ "$1" != "" ]; do
   case $1 in
-    -h | --help)
-      usage
-      ;;
-    --distro=*)
-      distro="${1#*=}"
-      ;;
-    -d)
-      shift
-      distro="$1"
-      ;;
-    --tags=*)
-      tags="${1#*=}"
-      ;;
-    -t)
-      shift
-      tags="$1"
-      ;;
-    *)
-      echo "Invalid option: $1"
-      exit 1
-      ;;
+  -h | --help)
+    usage
+    ;;
+  --distro=*)
+    distro="${1#*=}"
+    ;;
+  -d)
+    shift
+    distro="$1"
+    ;;
+  --tags=*)
+    tags="${1#*=}"
+    ;;
+  -t)
+    shift
+    tags="$1"
+    ;;
+  *)
+    echo "Invalid option: $1"
+    exit 1
+    ;;
   esac
-  shift  # Move to the next argument
+  shift # Move to the next argument
 done
 
 # Split the tags into an array
-IFS=',' read -r -a tags_array <<< "$tags"
+IFS=',' read -r -a tags_array <<<"$tags"
 
 # Check if the tags are valid
 for tag in "${tags_array[@]}"; do
@@ -67,17 +67,16 @@ for tag in "${tags_array[@]}"; do
   fi
 done
 
+#
 if [ "$distro" == "" ]; then
   printf "Please provide a distro argument. Use 'ubuntu' or 'fedora'.\n"
   exit 1
 fi
 
-if [ "$distro" == "ubuntu" ] || [  "$distro" == "fedora" ]; then
-  docker compose up -d "dotfiles-$distro" && \
+if [ "$distro" == "ubuntu" ] || [ "$distro" == "fedora" ]; then
+  docker compose up -d "dotfiles-$distro" &&
     docker compose exec "dotfiles-$distro" bash /home/devuser/code/.dotfiles/bin/bootstrap "$tags"
-    else
-      printf "Invalid argument. Please use 'ubuntu' or 'fedora'.\n"
-      exit 1
+else
+  printf "Invalid argument. Please use 'ubuntu' or 'fedora'.\n"
+  exit 1
 fi
-
-
