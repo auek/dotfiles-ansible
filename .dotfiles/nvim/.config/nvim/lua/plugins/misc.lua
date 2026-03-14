@@ -39,6 +39,9 @@ return {
       debounce_ms = 150,
       accept_keymap = "<Tab>",
       dismiss_keymap = "<S-Tab>",
+      lsp = {
+        cmd_env = { LLM_LOG_LEVEL = "DEBUG" },
+      },
     },
   },
   -- Comment.nvim
